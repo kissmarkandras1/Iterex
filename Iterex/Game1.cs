@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Iterex.Entity.Player;
+using Iterex.Entity.Tile;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
