@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Iterex.Entity.Player;
-using Iterex.Entity.Tile;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -48,10 +47,26 @@ namespace Iterex
 
             //MARK: We load the graphics for entities and tiles into a global storage, referencing them by key
             Global.tileTextures.Add("grass", Content.Load<Texture2D>("tiles/grassdirt"));
-            Global.entityTextures.Add("player", Content.Load<Texture2D>("entitysprites/player"));
+            Global.tileTextures.Add("Tile_0000", Content.Load<Texture2D>("tiles/Tile_0000"));
+            Global.tileTextures.Add("Tile_0001", Content.Load<Texture2D>("tiles/Tile_0001"));
+            Global.tileTextures.Add("Tile_0010", Content.Load<Texture2D>("tiles/Tile_0010"));
+            Global.tileTextures.Add("Tile_0011", Content.Load<Texture2D>("tiles/Tile_0011"));
+            Global.tileTextures.Add("Tile_0100", Content.Load<Texture2D>("tiles/Tile_0100"));
+            Global.tileTextures.Add("Tile_0101", Content.Load<Texture2D>("tiles/Tile_0101"));
+            Global.tileTextures.Add("Tile_0110", Content.Load<Texture2D>("tiles/Tile_0110"));
+            Global.tileTextures.Add("Tile_0111", Content.Load<Texture2D>("tiles/Tile_0111"));
+            Global.tileTextures.Add("Tile_1000", Content.Load<Texture2D>("tiles/Tile_1000"));
+            Global.tileTextures.Add("Tile_1001", Content.Load<Texture2D>("tiles/Tile_1001"));
+            Global.tileTextures.Add("Tile_1010", Content.Load<Texture2D>("tiles/Tile_1010"));
+            Global.tileTextures.Add("Tile_1011", Content.Load<Texture2D>("tiles/Tile_1011"));
+            Global.tileTextures.Add("Tile_1100", Content.Load<Texture2D>("tiles/Tile_1100"));
+            Global.tileTextures.Add("Tile_1101", Content.Load<Texture2D>("tiles/Tile_1101"));
+            Global.tileTextures.Add("Tile_1110", Content.Load<Texture2D>("tiles/Tile_1110"));
+            Global.tileTextures.Add("Tile_1111", Content.Load<Texture2D>("tiles/Tile_1111"));
+            Global.entityTextures.Add("player", Content.Load<Texture2D>("entitysprites/Woodcutter"));
 
             //MARK: Need to initialize them once we have the textures for the width of collision box
-            Global.activeWorld = new World();
+            Global.activeWorld = new World.World();
             Global.player = new Player();
 
             // TODO: use this.Content to load your game content here

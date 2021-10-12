@@ -48,8 +48,8 @@
     <Compile Include="Entity\Player\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entity\Tile\Tile.cs" />
-    <Compile Include="Entity\Tile\World.cs" />
+    <Compile Include="World\Tile\Tile.cs" />
+    <Compile Include="World\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

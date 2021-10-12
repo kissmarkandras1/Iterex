@@ -10,7 +10,7 @@ namespace Iterex.Entity.Player
     {
         public Player()
         {
-            position = new Vector2(0, 120);
+            position = new Vector2(0, 3 * Global.TILE_SIZE);
             mapPosition = new Vector2(0, 3);
             velocity = new Vector2(0, 0);
             texture = "player";
@@ -24,16 +24,16 @@ namespace Iterex.Entity.Player
 
             if (Global.keyboardState.IsKeyDown(Keys.D))
             {
-                velocity.X = 300;
+                velocity.X = 4 * Global.TILE_SIZE;
             }
             if (Global.keyboardState.IsKeyDown(Keys.A))
             {
-                velocity.X = -300;
+                velocity.X = -4 * Global.TILE_SIZE;
             }
             //MARK: Negative Y is up
             if (Global.keyboardState.IsKeyDown(Keys.W) && onGround)
             {
-                velocity.Y = -300;
+                velocity.Y = -4 * Global.TILE_SIZE;
                 onGround = false;
             }
 
@@ -42,10 +42,10 @@ namespace Iterex.Entity.Player
             
             //MARK: Corners to check for collision
             Vector2[] checkCorners = new Vector2[4];
-            checkCorners[0] = newPosition / 40;
-            checkCorners[1] = new Vector2(newPosition.X + collisionBox.Width, newPosition.Y) / 40;
-            checkCorners[2] = new Vector2(newPosition.X, newPosition.Y + collisionBox.Height) / 40;
-            checkCorners[3] = new Vector2(newPosition.X + collisionBox.Width, newPosition.Y + collisionBox.Height) / 40;
+            checkCorners[0] = newPosition / Global.TILE_SIZE;
+            checkCorners[1] = new Vector2(newPosition.X + collisionBox.Width, newPosition.Y) / Global.TILE_SIZE;
+            checkCorners[2] = new Vector2(newPosition.X, newPosition.Y + collisionBox.Height) / Global.TILE_SIZE;
+            checkCorners[3] = new Vector2(newPosition.X + collisionBox.Width, newPosition.Y + collisionBox.Height) / Global.TILE_SIZE;
 
             //MARK: Checking collision in the blocks along the player's top side
             for (int i = (int)checkCorners[0].X; i < (int)checkCorners[1].X; i++)
@@ -55,7 +55,7 @@ namespace Iterex.Entity.Player
                 {
                     //MARK: If the player would overshoot and collide, the player ends up adjacent to the tile, later will be done with adjusting a vector between current and future position
                     velocity.Y = 0;
-                    newPosition.Y = ((int)checkCorners[0].Y + 1) * 40;
+                    newPosition.Y = ((int)checkCorners[0].Y + 1) * Global.TILE_SIZE;
                     break;
                 }
             }
@@ -69,7 +69,7 @@ namespace Iterex.Entity.Player
                 {
                     //MARK: If the player would overshoot and collide, the player ends up adjacent to the tile, later will be done with adjusting a vector between current and future position
                     velocity.Y = 0;
-                    newPosition.Y = ((int)checkCorners[0].Y) * 40;
+                    newPosition.Y = ((int)checkCorners[0].Y) * Global.TILE_SIZE;
                     onGround = true;
                     break;
                 }
@@ -77,7 +77,7 @@ namespace Iterex.Entity.Player
             //MARK: Gravity
             if (!bottomCollision)
             {
-                velocity.Y += 500 * deltaTime;
+                velocity.Y += 10 * Global.TILE_SIZE * deltaTime;
             }
 
 
@@ -89,7 +89,7 @@ namespace Iterex.Entity.Player
                 {
                     //MARK: If the player would overshoot and collide, the player ends up adjacent to the tile, later will be done with adjusting a vector between current and future position
                     velocity.X = 0;
-                    newPosition.X = ((int)checkCorners[0].X + 1) * 40;
+                    newPosition.X = ((int)checkCorners[0].X + 1) * Global.TILE_SIZE;
                     break;
                 }
             }
@@ -103,13 +103,13 @@ namespace Iterex.Entity.Player
                 {
                     //MARK: If the player would overshoot and collide, the player ends up adjacent to the tile, later will be done with adjusting a vector between current and future position
                     velocity.X = 0;
-                    newPosition.X = ((int)checkCorners[0].X) * 40;
+                    newPosition.X = ((int)checkCorners[0].X) * Global.TILE_SIZE;
                     break;
                 }
             }
 
             position = newPosition;
-            mapPosition = position / 40;
+            mapPosition = position / Global.TILE_SIZE;
             collisionBox.X = (int)position.X;
             collisionBox.Y = (int)position.Y;
         }
