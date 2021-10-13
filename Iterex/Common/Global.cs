@@ -5,22 +5,23 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Iterex
+namespace Iterex.Common
 {
     public static class Global
     {
 
         public static readonly int TILE_SIZE = 32;
 
-        public static KeyboardState keyboardState;
-        public static MouseState mouseState;
-        public static World.World activeWorld;
-        public static Vector2 cameraPosition;
-        public static Dictionary<string, Texture2D> tileTextures;
-        public static Dictionary<string, Texture2D> entityTextures;
-        public static Player player;
-        public static Random random = new Random();
-        public static int[,] tileMap =
+        public static KeyboardState KeyboardState;
+        public static MouseState MouseState;
+        public static World.World ActiveWorld;
+        public static Vector2 CameraPosition;
+        public static List<Sprite> Sprites;
+        public static Dictionary<string, Texture2D> TileTextures;
+        public static Dictionary<string, Texture2D> EntityTextures;
+        public static Player Player;
+        public static Random Random = new Random();
+        public static int[,] TileMap =
         {
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 },
