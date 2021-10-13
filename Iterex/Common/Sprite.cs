@@ -13,11 +13,10 @@ namespace Iterex.Common
         protected Texture2D _texture;
 
         public Vector2 Position;
-        public Vector2 MapPosition;
         public Color Colour = Color.White;
         public bool IsSolid;
 
-        public Rectangle CollisionBox
+        public virtual Rectangle CollisionBox
         {
             get
             {
@@ -38,7 +37,7 @@ namespace Iterex.Common
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (_texture != null)
-                spriteBatch.Draw(_texture, Position - Global.CameraPosition, Colour);
+                spriteBatch.Draw(_texture, Position, Colour);
         }
 
     }

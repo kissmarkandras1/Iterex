@@ -42,7 +42,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Common\Animation\Animation.cs" />
+    <Compile Include="Common\Animation\AnimationManager.cs" />
+    <Compile Include="Common\Camera.cs" />
     <Compile Include="Common\Sprite.cs" />
+    <Compile Include="Entity\AnimatedEntity.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\EntityConfiguration.cs" />
     <Compile Include="Game1.cs" />
