@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Iterex.Common;
 using Iterex.Entity.Player;
-using Iterex.Entity.Tile;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -31,8 +31,9 @@ namespace Iterex
         {
             // TODO: Add your initialization logic here
 
-            Global.entityTextures = new Dictionary<string, Texture2D>();
-            Global.tileTextures = new Dictionary<string, Texture2D>();
+            Global.Sprites = new List<Sprite>();
+            Global.EntityTextures = new Dictionary<string, Texture2D>();
+            Global.TileTextures = new Dictionary<string, Texture2D>();
 
             base.Initialize();
         }
@@ -47,12 +48,36 @@ namespace Iterex
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //MARK: We load the graphics for entities and tiles into a global storage, referencing them by key
-            Global.tileTextures.Add("grass", Content.Load<Texture2D>("tiles/grassdirt"));
-            Global.entityTextures.Add("player", Content.Load<Texture2D>("entitysprites/player"));
+            Global.TileTextures.Add("empty", null);
+            Global.TileTextures.Add("grass", Content.Load<Texture2D>("tiles/grassdirt"));
+            Global.TileTextures.Add("Tile_0000", Content.Load<Texture2D>("tiles/Tile_0000"));
+            Global.TileTextures.Add("Tile_0001", Content.Load<Texture2D>("tiles/Tile_0001"));
+            Global.TileTextures.Add("Tile_0010", Content.Load<Texture2D>("tiles/Tile_0010"));
+            Global.TileTextures.Add("Tile_0011", Content.Load<Texture2D>("tiles/Tile_0011"));
+            Global.TileTextures.Add("Tile_0100", Content.Load<Texture2D>("tiles/Tile_0100"));
+            Global.TileTextures.Add("Tile_0101", Content.Load<Texture2D>("tiles/Tile_0101"));
+            Global.TileTextures.Add("Tile_0110", Content.Load<Texture2D>("tiles/Tile_0110"));
+            Global.TileTextures.Add("Tile_0111", Content.Load<Texture2D>("tiles/Tile_0111"));
+            Global.TileTextures.Add("Tile_1000", Content.Load<Texture2D>("tiles/Tile_1000"));
+            Global.TileTextures.Add("Tile_1001", Content.Load<Texture2D>("tiles/Tile_1001"));
+            Global.TileTextures.Add("Tile_1010", Content.Load<Texture2D>("tiles/Tile_1010"));
+            Global.TileTextures.Add("Tile_1011", Content.Load<Texture2D>("tiles/Tile_1011"));
+            Global.TileTextures.Add("Tile_1100", Content.Load<Texture2D>("tiles/Tile_1100"));
+            Global.TileTextures.Add("Tile_1101", Content.Load<Texture2D>("tiles/Tile_1101"));
+            Global.TileTextures.Add("Tile_1110", Content.Load<Texture2D>("tiles/Tile_1110"));
+            Global.TileTextures.Add("Tile_1111", Content.Load<Texture2D>("tiles/Tile_1111"));
+            Global.EntityTextures.Add("player", Content.Load<Texture2D>("entitysprites/Woodcutter"));
 
             //MARK: Need to initialize them once we have the textures for the width of collision box
-            Global.activeWorld = new World();
-            Global.player = new Player();
+            Global.ActiveWorld = new World.World();
+            Global.Player = new Player(Global.EntityTextures["player"])
+            {
+                Position = new Vector2(0, 3 * Global.TILE_SIZE),
+                MapPosition = new Vector2(0, 3),
+                Velocity = new Vector2(0, 0),
+                OnGround = false,
+                Speed = 70f
+            };
 
             // TODO: use this.Content to load your game content here
         }
@@ -74,17 +99,14 @@ namespace Iterex
         protected override void Update(GameTime gameTime)
         {
             //MARK: Get the states of keyboard and mouse inputs and store them globally
-            Global.keyboardState = Keyboard.GetState();
-            Global.mouseState = Mouse.GetState();
+            Global.KeyboardState = Keyboard.GetState();
+            Global.MouseState = Mouse.GetState();
 
-            //MARK: Time elapsed since last frame in seconds
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            Global.player.Update(deltaTime);
+            Global.Player.Update(gameTime, Global.Sprites);
 
             //MARK: Centering camera on player
-            Global.cameraPosition = new Vector2(Global.player.position.X + Global.player.collisionBox.Width / 2 - graphics.PreferredBackBufferWidth / 2,
-                Global.player.position.Y + Global.player.collisionBox.Height / 2 - graphics.PreferredBackBufferHeight / 2);
+            Global.CameraPosition = new Vector2(Global.Player.Position.X + Global.Player.CollisionBox.Width / 2 - graphics.PreferredBackBufferWidth / 2,
+                                                Global.Player.Position.Y + Global.Player.CollisionBox.Height / 2 - graphics.PreferredBackBufferHeight / 2);
 
             // TODO: Add your update logic here
 
@@ -103,8 +125,8 @@ namespace Iterex
 
             spriteBatch.Begin();
 
-            Global.activeWorld.Draw(spriteBatch);
-            Global.player.Draw(spriteBatch);
+            Global.ActiveWorld.Draw(spriteBatch);
+            Global.Player.Draw(spriteBatch);
             
             spriteBatch.End();
 
