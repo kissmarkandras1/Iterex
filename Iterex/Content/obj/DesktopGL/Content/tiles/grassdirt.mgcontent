@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/vanto/source/repos/Iterex/Iterex/Content/tiles/grassdirt.png</SourceFile>
-  <SourceTime>2021-10-09T16:19:13.6653821+02:00</SourceTime>
-  <DestFile>C:/Users/vanto/source/repos/Iterex/Iterex/Content/bin/DesktopGL/Content/tiles/grassdirt.xnb</DestFile>
-  <DestTime>2021-10-13T02:20:37.1254958+02:00</DestTime>
+  <SourceFile>C:/Users/asd/a/git/asd/Iterex/Content/tiles/grassdirt.png</SourceFile>
+  <SourceTime>2021-10-14T01:39:21.7812005+02:00</SourceTime>
+  <DestFile>C:/Users/asd/a/git/asd/Iterex/Content/bin/DesktopGL/Content/tiles/grassdirt.xnb</DestFile>
+  <DestTime>2021-10-14T01:40:27.9972005+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
