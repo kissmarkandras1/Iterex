@@ -29,7 +29,7 @@ namespace Iterex.World.Background
             {
                 _sprites.Add(new Sprite(texture)
                 {
-                    Position = new Vector2(i * texture.Width, Game1.ScreenHeight - texture.Height),
+                    Position = new Vector2(i * texture.Width - 3*i, Game1.ScreenHeight - texture.Height),
                     IsSolid = false
                 });
                 Console.WriteLine(_sprites[i].Position);
@@ -74,8 +74,8 @@ namespace Iterex.World.Background
                 if (sprite.TextureBox.Right < 0)
                 {
                     int lastId = (i - 1 < 0) ? _repeat - 1 : i - 1;
-                    sprite.Position.X = _sprites[lastId].TextureBox.Right;
-                }
+                    sprite.Position.X = _sprites[lastId].TextureBox.Right - 3;
+                } 
             }
         }
     }
