@@ -43,8 +43,7 @@ namespace Iterex.World
                         string textureName = "Tile_" + hasUp + hasRight + hasDown + hasLeft;
                         map[i, j] = new Tile.Tile(Global.TileTextures[textureName])
                         {
-                            Position = new Vector2(i * Global.TILE_SIZE, j * Global.TILE_SIZE) - Global.CameraPosition,
-                            MapPosition = new Vector2(i, j),
+                            Position = new Vector2(i * Global.TILE_SIZE, j * Global.TILE_SIZE),
                             Colour = Color.White,
                             IsSolid = true
                         };
