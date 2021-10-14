@@ -86,6 +86,8 @@ namespace Iterex
             woodCutterAnimations.Add("WalkLeft", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_walk_left"), 6, true));
             woodCutterAnimations.Add("RunRight", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_run_right"), 6, true));
             woodCutterAnimations.Add("RunLeft", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_run_left"), 6, true));
+            woodCutterAnimations.Add("JumpRight", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_jump_right"), 6, true));
+            woodCutterAnimations.Add("JumpLeft", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_jump_left"), 6, true));
             woodCutterAnimations.Add("IdleRight", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_idle_right"), 4, true));
             woodCutterAnimations.Add("IdleLeft", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcuttuer_idle_left"), 4, true));
 
@@ -95,7 +97,7 @@ namespace Iterex
             Global.ActiveWorld = new World.World();
             Global.Player = new Player(Global.EntityTextures["Woodcutter"], Global.AnimatedEntityTextures["Woodcutter"])
             {
-                Position = new Vector2(0, 3 * Global.TILE_SIZE),
+                Position = new Vector2(10 * Global.TILE_SIZE, 100 ),
                 Velocity = new Vector2(0, 0),
                 OnGround = false,
                 Direction = 1,

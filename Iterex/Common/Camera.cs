@@ -14,8 +14,8 @@ namespace Iterex.Common
 
         public void Follow (Sprite sprite)
         {
-            Matrix translateToOrigin = Matrix.CreateTranslation((-sprite.Position.X - sprite.CollisionBox.Width / 2) * ScaleRatio ,
-                                                                (-sprite.Position.Y - sprite.CollisionBox.Height / 2) * ScaleRatio,
+            Matrix translateToOrigin = Matrix.CreateTranslation((-sprite.CollisionBox.X - sprite.CollisionBox.Width / 2) * ScaleRatio ,
+                                                                (-sprite.CollisionBox.Y - sprite.CollisionBox.Height / 2) * ScaleRatio,
                                                                 0);
 
             Matrix translateToCenter = Matrix.CreateTranslation(Game1.ScreenWidth / 2,

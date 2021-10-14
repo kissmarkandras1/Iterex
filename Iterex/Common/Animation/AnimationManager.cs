@@ -58,5 +58,25 @@ namespace Iterex.Common.Animation
                                            _animation.FrameHeight),
                              Colour);
         }
+
+        public Color[] GetTextureData()
+        {
+            return _animation.GetCurrentFrameTextureData();
+        }
+
+        public Rectangle GetImageBox()
+        {
+            return _animation.GetCurrentFrameImageBox();
+        }
+
+        public int GetWidth()
+        {
+            return _animation.FrameWidth;
+        }
+
+        public int GetHeight()
+        {
+            return _animation.FrameHeight;
+        }
     } 
 }

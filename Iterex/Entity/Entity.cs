@@ -20,8 +20,9 @@ namespace Iterex.Entity
 
         }
 
-        //Check collision with other sprite
-        #region Collision
+
+        //Check collision with other sprite - AABB
+        #region CollisionAABB
         protected bool IsTouchingLeft(Sprite sprite, float deltaTime)
         {
             return this.CollisionBox.Right + this.Velocity.X * deltaTime > sprite.CollisionBox.Left &&
@@ -52,6 +53,34 @@ namespace Iterex.Entity
                    this.CollisionBox.Bottom > sprite.CollisionBox.Bottom &&
                    this.CollisionBox.Right > sprite.CollisionBox.Left &&
                    this.CollisionBox.Left < sprite.CollisionBox.Right;
+        }
+        #endregion
+
+        #region Pixel Collision
+        protected bool IntersectsPixel(Sprite sprite, float deltaTime)
+        {
+            Vector2 nextPosition = Position + Velocity * deltaTime;
+            Rectangle nextCollisionBox = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, CollisionBox.Width, CollisionBox.Height);
+
+            int top = Math.Max(nextCollisionBox.Top, sprite.CollisionBox.Top);
+            int bottom = Math.Min(nextCollisionBox.Bottom, sprite.CollisionBox.Bottom);
+            int left = Math.Max(nextCollisionBox.Left, sprite.CollisionBox.Left);
+            int right = Math.Min(nextCollisionBox.Right, sprite.CollisionBox.Right);
+
+            Color[] thisTextureData = this.GetTextureData();
+            Color[] spriteTextureData = sprite.GetTextureData();
+
+            for (int x = left; x < right; x++)
+                for (int y = top; y < bottom; y++)
+                {
+                    Color pixelOfThis = thisTextureData[(x - nextCollisionBox.Left) + (y - nextCollisionBox.Top) * nextCollisionBox.Width];
+                    Color pixelOfSprite = spriteTextureData[(x - sprite.CollisionBox.Left) + (y - sprite.CollisionBox.Top) * sprite.CollisionBox.Width];
+
+                    if (pixelOfThis.A != 0 && pixelOfSprite.A != 0)
+                        return true;
+                }
+
+            return false;
         }
         #endregion
     }
