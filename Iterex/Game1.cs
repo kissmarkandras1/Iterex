@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Iterex.Common;
 using Iterex.Common.Animation;
 using Iterex.Entity.Player;
+using Iterex.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -37,6 +38,9 @@ namespace Iterex
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.ApplyChanges();
             ScreenWidth = graphics.PreferredBackBufferWidth;
             ScreenHeight = graphics.PreferredBackBufferHeight;
 
@@ -44,6 +48,7 @@ namespace Iterex
             _camera.ScaleRatio = 2.5f;
 
             Global.Sprites = new List<Sprite>();
+            Global.BackgroundTextures = new Dictionary<string, Texture2D>();
             Global.EntityTextures = new Dictionary<string, Texture2D>();
             Global.TileTextures = new Dictionary<string, Texture2D>();
             Global.AnimatedEntityTextures = new Dictionary<string, Dictionary<string, Animation>>();
@@ -79,6 +84,13 @@ namespace Iterex
             Global.TileTextures.Add("Tile_1110", Content.Load<Texture2D>("tiles/Tile_1110"));
             Global.TileTextures.Add("Tile_1111", Content.Load<Texture2D>("tiles/Tile_1111"));
 
+            Global.BackgroundTextures.Add("Layer0", Content.Load<Texture2D>("background/layer0"));
+            Global.BackgroundTextures.Add("Layer1", Content.Load<Texture2D>("background/layer1"));
+            Global.BackgroundTextures.Add("Layer2", Content.Load<Texture2D>("background/layer2"));
+            Global.BackgroundTextures.Add("Layer3", Content.Load<Texture2D>("background/layer3"));
+            Global.BackgroundTextures.Add("Layer4", Content.Load<Texture2D>("background/layer4"));
+            Global.BackgroundTextures.Add("Layer5", Content.Load<Texture2D>("background/layer5"));
+
             Global.EntityTextures.Add("Woodcutter", Content.Load<Texture2D>("entitysprites/Woodcutter"));
 
             Dictionary<string, Animation> woodCutterAnimations = new Dictionary<string, Animation>();
@@ -95,6 +107,7 @@ namespace Iterex
 
             //MARK: Need to initialize them once we have the textures for the width of collision box
             Global.ActiveWorld = new World.World();
+            Global.ParralexBackground = new ParallaxBackground();
             Global.Player = new Player(Global.EntityTextures["Woodcutter"], Global.AnimatedEntityTextures["Woodcutter"])
             {
                 Position = new Vector2(10 * Global.TILE_SIZE, 100 ),
@@ -126,6 +139,7 @@ namespace Iterex
             Global.KeyboardState = Keyboard.GetState();
             Global.MouseState = Mouse.GetState();
 
+            Global.ParralexBackground.Update(gameTime);
             Global.Player.Update(gameTime, Global.Sprites);
 
             //MARK: Centering camera on player
@@ -146,11 +160,17 @@ namespace Iterex
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin(transformMatrix: _camera.TransformMatrix);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp);
+
+            Global.ParralexBackground.Draw(spriteBatch);
+            
+            spriteBatch.End();
+
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: _camera.TransformMatrix);
 
             Global.ActiveWorld.Draw(spriteBatch);
             Global.Player.Draw(spriteBatch);
-            
+
             spriteBatch.End();
 
             base.Draw(gameTime);

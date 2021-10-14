@@ -71,6 +71,14 @@ namespace Iterex.Common
             }
         }
 
+        public virtual void Draw(SpriteBatch spriteBatch, float depth)
+        {
+            if (_texture != null)
+            {
+                spriteBatch.Draw(_texture, Position, null, Colour, 0, new Vector2(0, 0), 1f, SpriteEffects.None, depth);
+            }
+        }
+
         public virtual Color[] GetTextureData()
         {
             return TextureData;

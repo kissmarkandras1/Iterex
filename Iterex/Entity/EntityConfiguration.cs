@@ -16,8 +16,8 @@ namespace Iterex.Entity
         //The amount of deceleration when release A or D
         public static Vector2 DecelerationX = new Vector2(0.1f, 0.0f);
         //To limit the speed
-        public static Vector2 MaxSpeed = new Vector2(2f, 8f);
+        public static Vector2 MaxSpeed = new Vector2(1.5f, 8f);
         //Initial force when press jump
-        public static Vector2 InitialJumpSpeed = new Vector2(0.0f, 7.0f);
+        public static Vector2 InitialJumpSpeed = new Vector2(0.0f, 8.0f);
     }
 }
