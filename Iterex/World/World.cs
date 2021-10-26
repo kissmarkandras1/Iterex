@@ -18,16 +18,16 @@ namespace Iterex.World
         public World(int width, int height)
         {
             //MARK: We create an empty Map based on tileMap's dimensions
-            Map = new Tile.Tile[height, width];
+            Map = new Tile.Tile[width, height];
 
             //MARK: Tilemap generation
             int[] heightMap = new int[width];
-            int[,] tileMap = new int[height, width];
+            int[,] tileMap = new int[width, height];
 
             //MARK: Generates peaks
             for (int i = 0; i < width; i += 10)
             {
-                heightMap[i] = Global.Random.Next(0, height);
+                heightMap[i] = Global.Random.Next(0, Math.Min(height, 30));
             }
 
             //MARK: And connects them
@@ -40,14 +40,14 @@ namespace Iterex.World
                 heightMap[i] = (nextDist * heightMap[prevTen] + prevDist * heightMap[nextTen])/(prevDist+nextDist);
             }
 
-            for (int i = 0; i < height; ++i)
-                for (int j = 0; j < width; ++j)
-                    tileMap[i, j] = (i == 0 || j == 0 || i == height - 1 || j == width - 1 || i > heightMap[j]) ? 1 : 0;
+            for (int i = 0; i < width; ++i)
+                for (int j = 0; j < height; ++j)
+                    tileMap[i, j] = (i == 0 || i == width - 1 || j == height - 1 || j > heightMap[i]) ? 1 : 0;
 
             //Initial the tiles based on tilemap
-            for (int i = 0; i < height; ++i)
+            for (int i = 0; i < width; ++i)
             {
-                for (int j = 0; j < width; ++j)
+                for (int j = 0; j < height; ++j)
                 {
                     if (tileMap[i, j] == 0)
                         Map[i, j] = new Tile.Tile(null);

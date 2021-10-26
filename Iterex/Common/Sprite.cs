@@ -66,7 +66,7 @@ namespace Iterex.Common
         {
             if (_texture != null)
             {
-                BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Red, 1);
+                //BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Red, 1);
                 spriteBatch.Draw(_texture, Position, Colour);
             }
         }
