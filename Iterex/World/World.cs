@@ -12,33 +12,56 @@ namespace Iterex.World
     public class World
     {
         public Tile.Tile[,] Map;
+        public Tile.Tile[,] BackgroundMap;
         public List<BackgroundLayer> BackgroundLayers;
 
-        public World()
+        public World(int width, int height)
         {
             //MARK: We create an empty Map based on tileMap's dimensions
-            int HEIGHT = Global.TileMap.GetLength(0);
-            int WIDTH = Global.TileMap.GetLength(1);
-            Map = new Tile.Tile[HEIGHT, WIDTH];
+            Map = new Tile.Tile[height, width];
 
-            //Initial the tiles based on tileMap
-            for (int i = 0; i < HEIGHT; ++i)
+            //MARK: Tilemap generation
+            int[] heightMap = new int[width];
+            int[,] tileMap = new int[height, width];
+
+            //MARK: Generates peaks
+            for (int i = 0; i < width; i += 10)
             {
-                for (int j = 0; j < WIDTH; ++j)
+                heightMap[i] = Global.Random.Next(0, height);
+            }
+
+            //MARK: And connects them
+            for (int i = 0; i < width; i ++)
+            {
+                int prevTen = (i/10)*10;
+                int nextTen = ((i/10)*10+10)>(width-1)? (width-1):((i/10)*10+10);
+                int prevDist = i-prevTen;
+                int nextDist = nextTen-i;
+                heightMap[i] = (nextDist * heightMap[prevTen] + prevDist * heightMap[nextTen])/(prevDist+nextDist);
+            }
+
+            for (int i = 0; i < height; ++i)
+                for (int j = 0; j < width; ++j)
+                    tileMap[i, j] = (i == 0 || j == 0 || i == height - 1 || j == width - 1 || i > heightMap[j]) ? 1 : 0;
+
+            //Initial the tiles based on tilemap
+            for (int i = 0; i < height; ++i)
+            {
+                for (int j = 0; j < width; ++j)
                 {
-                    if (Global.TileMap[i, j] == 0)
+                    if (tileMap[i, j] == 0)
                         Map[i, j] = new Tile.Tile(null);
-                    if (Global.TileMap[i, j] != 0)
+                    if (tileMap[i, j] != 0)
                     {
                         int hasUp = 1, hasRight = 1, hasDown = 1, hasLeft = 1;
                         if (i > 0)
-                            hasLeft = (Global.TileMap[i - 1, j] == 1) ? 1 : 0;
-                        if (i < Global.TileMap.GetLength(0) - 1)
-                            hasRight = (Global.TileMap[i + 1, j] == 1) ? 1 : 0;
+                            hasLeft = (tileMap[i - 1, j] == 1) ? 1 : 0;
+                        if (i < tileMap.GetLength(0) - 1)
+                            hasRight = (tileMap[i + 1, j] == 1) ? 1 : 0;
                         if (j > 0)
-                            hasUp = (Global.TileMap[i, j - 1] == 1) ? 1 : 0;
-                        if (j < Global.TileMap.GetLength(1) - 1)
-                            hasDown = (Global.TileMap[i, j + 1] == 1) ? 1 : 0;
+                            hasUp = (tileMap[i, j - 1] == 1) ? 1 : 0;
+                        if (j < tileMap.GetLength(1) - 1)
+                            hasDown = (tileMap[i, j + 1] == 1) ? 1 : 0;
                         //Format Tile_hasUp?_hasRight?_hasDown?_hasLeft?
                         //hasUp/hasRight/hasDown/hasLeft specify whether there is another tile block in that direction
                         //There are corresponding images to each format

@@ -11,10 +11,12 @@ namespace Iterex.World.Tile
 {
     public class Tile : Sprite
     {
+        public int Id;
+        public int BackgroundId;
+        public int Light;
         public Tile(Texture2D texture)
             : base(texture)
         {
-
         }
 
     }

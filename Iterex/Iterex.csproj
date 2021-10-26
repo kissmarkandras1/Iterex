@@ -50,6 +50,7 @@
     <Compile Include="Entity\AnimatedEntity.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\EntityConfiguration.cs" />
+    <Compile Include="Entity\Hitbox.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Common\Global.cs" />
     <Compile Include="Entity\Player\Player.cs" />
