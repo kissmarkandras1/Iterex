@@ -13,6 +13,9 @@ namespace Iterex.Entity
         public Vector2 Velocity;
         public float Speed;
         public bool OnGround;
+        public int Team;
+        public int Health;
+        public List<Hitbox> Hitboxes = new List<Hitbox>();
 
         public Entity(Texture2D texture) 
             : base(texture)
@@ -20,6 +23,12 @@ namespace Iterex.Entity
 
         }
 
+        public void Damage(int damage)
+        {
+            Health -= damage;
+            if (Health <= 0)
+                Global.Entities.Remove(this);
+        }
 
         //Check collision with other sprite - AABB
         #region CollisionAABB

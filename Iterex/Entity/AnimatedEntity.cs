@@ -37,8 +37,8 @@ namespace Iterex.Entity
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Black, 1);
-            BorderDrawer.DrawRectangle(spriteBatch, TextureBox, Color.White, 1);
+            //BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Black, 1);
+            //BorderDrawer.DrawRectangle(spriteBatch, TextureBox, Color.White, 1);
             _animationManager.Draw(spriteBatch, Position);
         }
 

@@ -106,11 +106,11 @@ namespace Iterex
             Global.AnimatedEntityTextures.Add("Woodcutter", woodCutterAnimations);
 
             //MARK: Need to initialize them once we have the textures for the width of collision box
-            Global.ActiveWorld = new World.World();
+            Global.ActiveWorld = new World.World(200,100);
             Global.ParralexBackground = new ParallaxBackground();
             Global.Player = new Player(Global.EntityTextures["Woodcutter"], Global.AnimatedEntityTextures["Woodcutter"])
             {
-                Position = new Vector2(10 * Global.TILE_SIZE, 100 ),
+                Position = new Vector2(10 * Global.TILE_SIZE, 10 * Global.TILE_SIZE),
                 Velocity = new Vector2(0, 0),
                 OnGround = false,
                 Direction = 1,
