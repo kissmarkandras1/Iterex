@@ -30,6 +30,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Iterex/Iterex.csproj
     - name: Build
-      run: dotnet clean ; dotnet build  ./Iterex/Iterex.csproj --no-restore
+      run: dotnet clean ; dotnet build --no-restore
     - name: Test
-      run: dotnet test ./Iterex.Tests/Iterex.Tests.csproj --no-build --verbosity normal
+      run: dotnet test
