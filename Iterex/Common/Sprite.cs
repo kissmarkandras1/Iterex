@@ -34,14 +34,24 @@ namespace Iterex.Common
         {
             get
             {
-                return new Rectangle((int)Position.X + _textures[_currentTexture].ImageBox.X - 1,
-                                     (int)Position.Y + _textures[_currentTexture].ImageBox.Y - 1,
+                return new Rectangle((int)Position.X + _textures[_currentTexture].ImageBox.X,
+                                     (int)Position.Y + _textures[_currentTexture].ImageBox.Y,
                                      _textures[_currentTexture].ImageBox.Width,
                                      _textures[_currentTexture].ImageBox.Height);
             }
         }
 
         public Sprite() { }
+
+        public Sprite(ITextureAdapter texture)
+        {
+            _textures = new Dictionary<string, ITextureAdapter>()
+            {
+                { texture.Name, texture }
+            };
+            _currentTexture = texture.Name;
+            _animationManager = new AnimationManager(_textures[_currentTexture]);
+        }
         public Sprite(Dictionary<string, ITextureAdapter> textures, string firstTexture)
         {
             _textures = textures;

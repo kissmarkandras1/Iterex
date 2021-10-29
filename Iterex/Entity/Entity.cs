@@ -10,10 +10,18 @@ namespace Iterex.Entity
 {
     public class Entity : Sprite
     {
-
+        public Random Random;
         public Vector2 Velocity;
         public EntityAttributes Attributes;
         public List<Hitbox> Hitboxes = new List<Hitbox>();
+
+        public Entity() : base() { }
+
+        public Entity(ITextureAdapter texture)
+            : base (texture)
+        {
+
+        }
 
         public Entity(Dictionary<string, ITextureAdapter> textures, string firstTexture) 
             : base(textures, firstTexture)
@@ -21,11 +29,36 @@ namespace Iterex.Entity
 
         }
 
-        public void Damage(int damage)
+        private bool IsDead()
         {
+            return Attributes.HP <= 0;
+        }
+
+        public bool Dodge()
+        {
+            if (Random.Next(1, 100) <= Attributes.DodgeChance)
+                return true;
+            return false;
+        }
+        public void ReceiveDamage(int damage)
+        {
+            if (Dodge())
+                return;
+
             Attributes.HP -= damage;
-            if (Attributes.HP <= 0)
+            if (IsDead())
                 Global.Entities.Remove(this);
+        }
+
+        public void DealDamage(Entity target)
+        {
+            target.ReceiveDamage(Attributes.Damage);
+        }
+
+        public void ReceiveHeal(int heal)
+        {
+            Attributes.HP += heal;
+            Attributes.HP = Math.Min(Attributes.HP, Attributes.MaxMP);
         }
 
         //Check collision with other sprite - AABB

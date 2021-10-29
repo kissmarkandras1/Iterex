@@ -16,6 +16,14 @@ namespace Iterex.Entity
         public int Direction { get; protected set; }
         public bool OnGround { get; protected set; }
 
+        public AnimatedEntity() : base() { }
+
+        public AnimatedEntity(ITextureAdapter texture) 
+            : base(texture)
+        {
+
+        }
+
         public AnimatedEntity(Dictionary<string, ITextureAdapter> textures, string firstTexture)
             : base(textures, firstTexture)
         {

@@ -8,6 +8,8 @@ namespace Iterex.Entity
 {
     public class EntityAttributes
     {
+        public int MaxHP;
+        public int MaxMP;
         public int HP;
         public int MP;
         public int Damage;

@@ -12,12 +12,22 @@ namespace Iterex.Entity.Player
 {
     public class Player : AnimatedEntity
     {
+
+        public Player() : base() { }
+
+        public Player(ITextureAdapter texture)
+            : base(texture)
+        {
+
+        }
+
         public Player(Dictionary<string, ITextureAdapter> textureAdapter, string firstTexture)
             : base(textureAdapter, firstTexture)
         {
             OnGround = false;
             Direction = 1;
         }
+
 
         public override void Update(GameTime gameTime, List<Sprite> sprites)
         {

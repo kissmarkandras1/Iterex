@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
 	 <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -24,8 +24,8 @@
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" />
-    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="*" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="*" />
   </ItemGroup>
 
   <!-- Actually cleans your project when you run "dotnet clean" -->
@@ -36,8 +36,4 @@
          <RemoveDir Directories="$(BaseOutputPath)" />
      </Target>
 
-<<<<<<< HEAD
 </Project>
-=======
-</Project>
->>>>>>> 46f8dbe15fc9e99bdc66e6c922d10c1f5989f1a4

@@ -94,6 +94,8 @@ namespace Iterex
                 Velocity = new Vector2(0, 0),
                 Attributes = new EntityAttributes()
                 {
+                    MaxHP = 100,
+                    MaxMP = 100,
                     HP = 100,
                     MP = 100,
                     Damage = 20,

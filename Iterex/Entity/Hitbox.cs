@@ -26,7 +26,7 @@ namespace Iterex.Entity
                 if (Box.Intersects(Common.Global.Entities[i].CollisionBox))
                 {
                     if (Common.Global.Entities[i].Attributes.Team != this.Team)
-                        Common.Global.Entities[i].Damage(Damage);
+                        Common.Global.Entities[i].ReceiveDamage(Damage);
                 }
             }
         }
