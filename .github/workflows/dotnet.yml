@@ -2,11 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: 
-	- "**"
+    branches: [ main, refactored-branch ]
   pull_request:
-    branches:
-	- "**"
+    branches: [ main, refactored-branch ]
 
 jobs:
   build:
