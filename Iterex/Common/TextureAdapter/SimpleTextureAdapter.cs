@@ -63,7 +63,7 @@ namespace Iterex.Common.TextureAdapter
 
         public int CurrentFrame
         {
-            set; get;
+            get; set;
         }
 
         public float FrameSpeed
@@ -89,11 +89,17 @@ namespace Iterex.Common.TextureAdapter
             get; private set;
         }
 
+        public string Name
+        {
+            get; private set;
+        }
+
         public SimpleTextureAdapter() { }
 
-        public SimpleTextureAdapter(Texture2D texture)
+        public SimpleTextureAdapter(Texture2D texture, string name)
         {
             _adaptee = texture;
+            Name = name;
 
             #region FindImageBoundary
             _textureData = new Color[Width * Height];
@@ -122,7 +128,15 @@ namespace Iterex.Common.TextureAdapter
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth)
         {
-            spriteBatch.Draw(Texture, position, null, Colour, 0, new Vector2(0, 0), 1f, SpriteEffects.None, depth);
+            spriteBatch.Draw(Texture, 
+                             position, 
+                             null, 
+                             Colour, 
+                             0,
+                             new Vector2(0, 0),
+                             1f, 
+                             SpriteEffects.None, 
+                             depth);
         }
     }
 }

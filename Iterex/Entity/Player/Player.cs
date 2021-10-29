@@ -12,10 +12,11 @@ namespace Iterex.Entity.Player
 {
     public class Player : AnimatedEntity
     {
-        public Player(List<ITextureAdapter> textureAdapter)
-            : base(textureAdapter)
+        public Player(Dictionary<string, ITextureAdapter> textureAdapter, string firstTexture)
+            : base(textureAdapter, firstTexture)
         {
-
+            OnGround = false;
+            Direction = 1;
         }
 
         public override void Update(GameTime gameTime, List<Sprite> sprites)
@@ -60,20 +61,20 @@ namespace Iterex.Entity.Player
             {
                 if (Velocity.X < 0)
                     Velocity.X = 0;
-                Velocity += EntityConfiguration.AccelerationX * Speed;
+                Velocity += EntityConfiguration.AccelerationX * Attributes.Speed;
                 HorizontalMoveRequest = true;
             }
             if (Global.KeyboardState.IsKeyDown(Keys.A))
             {
                 if (Velocity.X > 0)
                     Velocity.X = 0;
-                Velocity -= EntityConfiguration.AccelerationX * Speed;
+                Velocity -= EntityConfiguration.AccelerationX * Attributes.Speed;
                 HorizontalMoveRequest = true;
             }
             //MARK: Negative Y is up
             if (Global.KeyboardState.IsKeyDown(Keys.W) && OnGround)
             {
-                Velocity += -EntityConfiguration.InitialJumpSpeed * Speed;
+                Velocity += -EntityConfiguration.InitialJumpSpeed * Attributes.Speed;
                 OnGround = false;
             }
 
@@ -81,20 +82,20 @@ namespace Iterex.Entity.Player
             Velocity += EntityConfiguration.Gravity;
 
             //Limit the speed
-            if (Velocity.X > EntityConfiguration.MaxSpeed.X * Speed)
-                Velocity.X = EntityConfiguration.MaxSpeed.X * Speed;
-            if (Velocity.X < -EntityConfiguration.MaxSpeed.X * Speed)
-                Velocity.X = -EntityConfiguration.MaxSpeed.X * Speed;
-            if (Velocity.Y > EntityConfiguration.MaxSpeed.Y * Speed)
-                Velocity.Y = EntityConfiguration.MaxSpeed.Y * Speed;
+            if (Velocity.X > EntityConfiguration.MaxSpeed.X * Attributes.Speed)
+                Velocity.X = EntityConfiguration.MaxSpeed.X * Attributes.Speed;
+            if (Velocity.X < -EntityConfiguration.MaxSpeed.X * Attributes.Speed)
+                Velocity.X = -EntityConfiguration.MaxSpeed.X * Attributes.Speed;
+            if (Velocity.Y > EntityConfiguration.MaxSpeed.Y * Attributes.Speed)
+                Velocity.Y = EntityConfiguration.MaxSpeed.Y * Attributes.Speed;
 
             //Decelerate the horizontal speed when release A/D buttons
             if (!HorizontalMoveRequest)
             {
                 if (Velocity.X > 0)
-                    Velocity.X -= Math.Min(EntityConfiguration.DecelerationX.X * Speed, Velocity.X);
+                    Velocity.X -= Math.Min(EntityConfiguration.DecelerationX.X * Attributes.Speed, Velocity.X);
                 if (Velocity.X < 0)
-                    Velocity.X += Math.Min(EntityConfiguration.DecelerationX.X * Speed, -Velocity.X);
+                    Velocity.X += Math.Min(EntityConfiguration.DecelerationX.X * Attributes.Speed, -Velocity.X);
             } 
         }
 
@@ -118,20 +119,20 @@ namespace Iterex.Entity.Player
             if (!OnGround)
             {
                 if (Direction == 1)
-                    _animationManager.PlayAnimation(_animations["JumpRight"]);
+                    SwitchTexture("JumpRight");
                 else
-                    _animationManager.PlayAnimation(_animations["JumpLeft"]);
+                    SwitchTexture("JumpLeft");
             }
-            else if (Velocity.X > 0)
-                _animationManager.PlayAnimation(_animations["RunRight"]);
+            else if (Velocity.X > 0) 
+                SwitchTexture("RunRight");
             else if (Velocity.X < 0)
-                _animationManager.PlayAnimation(_animations["RunLeft"]);
+                SwitchTexture("RunLeft");
             else
             {
                 if (Direction > 0)
-                    _animationManager.PlayAnimation(_animations["IdleRight"]);
+                    SwitchTexture("IdleRight");
                 else
-                    _animationManager.PlayAnimation(_animations["IdleLeft"]);
+                    SwitchTexture("IdleLeft");
             }
             
         }

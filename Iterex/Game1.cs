@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Iterex.Common;
 using Iterex.Common.Animation;
 using Iterex.Common.TextureAdapter;
+using Iterex.Entity;
 using Iterex.Entity.Player;
 using Iterex.World;
 using Microsoft.Xna.Framework;
@@ -16,9 +17,8 @@ namespace Iterex
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
         private Camera _camera;
 
         public static int ScreenWidth;
@@ -28,7 +28,7 @@ namespace Iterex
         {
             ScreenWidth = width;
             ScreenHeight = height;
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -41,20 +41,33 @@ namespace Iterex
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferHeight = ScreenHeight;
-            graphics.PreferredBackBufferWidth = ScreenHeight;
-            graphics.ApplyChanges();
-
-            _camera = new Camera();
-            _camera.ScaleRatio = 2.5f;
-
-            Global.Sprites = new List<Sprite>();
-            Global.BackgroundTextures = new Dictionary<string, Texture2D>();
-            Global.EntityTextures = new Dictionary<string, Texture2D>();
-            Global.TileTextures = new Dictionary<string, Texture2D>();
-            Global.AnimatedEntityTextures = new Dictionary<string, Dictionary<string, Animation>>();
+            InitializeGraphic();
+            InitializeCamera();
+            InitializeGlobalProperties();
 
             base.Initialize();
+        }
+
+        private void InitializeGraphic()
+        {
+            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.ApplyChanges();
+        }
+
+        private void InitializeCamera()
+        {
+            _camera = new Camera();
+            _camera.ScaleRatio = 2.5f;
+        }
+ 
+        private void InitializeGlobalProperties()
+        {
+            Global.Sprites = new List<Sprite>();
+            Global.BackgroundTextures = new Dictionary<string, ITextureAdapter>();
+            Global.EntityTextures = new Dictionary<string, ITextureAdapter>();
+            Global.TileTextures = new Dictionary<string, ITextureAdapter>();
+            Global.AnimatedEntityTextures = new Dictionary<string, ITextureAdapter>();
         }
 
         /// <summary>
@@ -64,62 +77,106 @@ namespace Iterex
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //MARK: We load the graphics for entities and tiles into a global storage, referencing them by key
-            Global.TileTextures.Add("empty", null);
-            Global.TileTextures.Add("Tile_0000", Content.Load<Texture2D>("tiles/Tile_0000"));
-            Global.TileTextures.Add("Tile_0001", Content.Load<Texture2D>("tiles/Tile_0001"));
-            Global.TileTextures.Add("Tile_0010", Content.Load<Texture2D>("tiles/Tile_0010"));
-            Global.TileTextures.Add("Tile_0011", Content.Load<Texture2D>("tiles/Tile_0011"));
-            Global.TileTextures.Add("Tile_0100", Content.Load<Texture2D>("tiles/Tile_0100"));
-            Global.TileTextures.Add("Tile_0101", Content.Load<Texture2D>("tiles/Tile_0101"));
-            Global.TileTextures.Add("Tile_0110", Content.Load<Texture2D>("tiles/Tile_0110"));
-            Global.TileTextures.Add("Tile_0111", Content.Load<Texture2D>("tiles/Tile_0111"));
-            Global.TileTextures.Add("Tile_1000", Content.Load<Texture2D>("tiles/Tile_1000"));
-            Global.TileTextures.Add("Tile_1001", Content.Load<Texture2D>("tiles/Tile_1001"));
-            Global.TileTextures.Add("Tile_1010", Content.Load<Texture2D>("tiles/Tile_1010"));
-            Global.TileTextures.Add("Tile_1011", Content.Load<Texture2D>("tiles/Tile_1011"));
-            Global.TileTextures.Add("Tile_1100", Content.Load<Texture2D>("tiles/Tile_1100"));
-            Global.TileTextures.Add("Tile_1101", Content.Load<Texture2D>("tiles/Tile_1101"));
-            Global.TileTextures.Add("Tile_1110", Content.Load<Texture2D>("tiles/Tile_1110"));
-            Global.TileTextures.Add("Tile_1111", Content.Load<Texture2D>("tiles/Tile_1111"));
-
-            Global.BackgroundTextures.Add("Layer0", Content.Load<Texture2D>("background/layer0"));
-            Global.BackgroundTextures.Add("Layer1", Content.Load<Texture2D>("background/layer1"));
-            Global.BackgroundTextures.Add("Layer2", Content.Load<Texture2D>("background/layer2"));
-            Global.BackgroundTextures.Add("Layer3", Content.Load<Texture2D>("background/layer3"));
-            Global.BackgroundTextures.Add("Layer4", Content.Load<Texture2D>("background/layer4"));
-            Global.BackgroundTextures.Add("Layer5", Content.Load<Texture2D>("background/layer5"));
-
-            Global.EntityTextures.Add("Woodcutter", Content.Load<Texture2D>("entitysprites/Woodcutter"));
-
-            Dictionary<string, Animation> woodCutterAnimations = new Dictionary<string, Animation>();
-            woodCutterAnimations.Add("WalkRight", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_walk_right"), 6), true));
-            woodCutterAnimations.Add("WalkLeft", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_walk_left"), 6), true));
-            woodCutterAnimations.Add("RunRight", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_run_right"), 6), true));
-            woodCutterAnimations.Add("RunLeft", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_run_left"), 6), true));
-            woodCutterAnimations.Add("JumpRight", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_jump_right"), 6), true));
-            woodCutterAnimations.Add("JumpLeft", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_jump_left"), 6), true));
-            woodCutterAnimations.Add("IdleRight", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_idle_right"), 4), true));
-            woodCutterAnimations.Add("IdleLeft", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcuttuer_idle_left"), 4), true));
-
-            Global.AnimatedEntityTextures.Add("Woodcutter", woodCutterAnimations);
+            LoadTiles();
+            LoadBackgrounds();
+            LoadAnimatedEntityTexture();
 
             //MARK: Need to initialize them once we have the textures for the width of collision box
             Global.ActiveWorld = new World.World(200, 100);
             Global.ParralexBackground = new ParallaxBackground();
-            Global.Player = new Player(new NormalTexture2DAdapter(Global.EntityTextures["Woodcutter"]), Global.AnimatedEntityTextures["Woodcutter"])
+
+            Global.Player = new Player(GetPlayerAnimations("Woodcutter"), "IdleRight")
             {
                 Position = new Vector2(10 * Global.TILE_SIZE, 10 * Global.TILE_SIZE),
                 Velocity = new Vector2(0, 0),
-                OnGround = false,
-                Direction = 1,
-                Speed = 70f
+                Attributes = new EntityAttributes()
+                {
+                    HP = 100,
+                    MP = 100,
+                    Damage = 20,
+                    DodgeChance = 20,
+                    Team = 1,
+                    Speed = 70f
+                }
             };
 
         }
 
+        private Dictionary<string, ITextureAdapter> GetPlayerAnimations(string playerName)
+        {
+            Dictionary<string, ITextureAdapter> animationList = new Dictionary<string, ITextureAdapter>();
+
+            animationList.Add("WalkRight", Global.AnimatedEntityTextures[playerName + "WalkRight"]);
+            animationList.Add("WalkLeft", Global.AnimatedEntityTextures[playerName + "WalkLeft"]);
+            animationList.Add("RunRight", Global.AnimatedEntityTextures[playerName + "RunRight"]);
+            animationList.Add("RunLeft", Global.AnimatedEntityTextures[playerName + "RunLeft"]);
+            animationList.Add("JumpRight", Global.AnimatedEntityTextures[playerName + "JumpRight"]);
+            animationList.Add("JumpLeft", Global.AnimatedEntityTextures[playerName + "JumpLeft"]);
+            animationList.Add("IdleRight", Global.AnimatedEntityTextures[playerName + "IdleRight"]);
+            animationList.Add("IdleLeft", Global.AnimatedEntityTextures[playerName + "IdleLeft"]);
+
+            return animationList;
+        }
+        private void LoadTiles()
+        {
+            ITextureAdapter GetTileTexture(string name)
+            {
+                return new SimpleTextureAdapter(Content.Load<Texture2D>("tiles/" + name), name);
+            }
+
+            Global.TileTextures.Add("Tile_0000", GetTileTexture("Tile_0000"));
+            Global.TileTextures.Add("Tile_0001", GetTileTexture("Tile_0001"));
+            Global.TileTextures.Add("Tile_0010", GetTileTexture("Tile_0010"));
+            Global.TileTextures.Add("Tile_0011", GetTileTexture("Tile_0011"));
+            Global.TileTextures.Add("Tile_0100", GetTileTexture("Tile_0100"));
+            Global.TileTextures.Add("Tile_0101", GetTileTexture("Tile_0101"));
+            Global.TileTextures.Add("Tile_0110", GetTileTexture("Tile_0110"));
+            Global.TileTextures.Add("Tile_0111", GetTileTexture("Tile_0111"));
+            Global.TileTextures.Add("Tile_1000", GetTileTexture("Tile_1000"));
+            Global.TileTextures.Add("Tile_1001", GetTileTexture("Tile_1001"));
+            Global.TileTextures.Add("Tile_1010", GetTileTexture("Tile_1010"));
+            Global.TileTextures.Add("Tile_1011", GetTileTexture("Tile_1011"));
+            Global.TileTextures.Add("Tile_1100", GetTileTexture("Tile_1100"));
+            Global.TileTextures.Add("Tile_1101", GetTileTexture("Tile_1101"));
+            Global.TileTextures.Add("Tile_1110", GetTileTexture("Tile_1110"));
+            Global.TileTextures.Add("Tile_1111", GetTileTexture("Tile_1111"));
+        }
+
+        private void LoadBackgrounds()
+        {
+            ITextureAdapter GetBackgroundTexture(string name)
+            {
+                return new SimpleTextureAdapter(Content.Load<Texture2D>("background/" + name), name);
+            }
+
+            Global.BackgroundTextures.Add("layer0", GetBackgroundTexture("layer0"));
+            Global.BackgroundTextures.Add("layer1", GetBackgroundTexture("layer1"));
+            Global.BackgroundTextures.Add("layer2", GetBackgroundTexture("layer2"));
+            Global.BackgroundTextures.Add("layer3", GetBackgroundTexture("layer3"));
+            Global.BackgroundTextures.Add("layer4", GetBackgroundTexture("layer4"));
+            Global.BackgroundTextures.Add("layer5", GetBackgroundTexture("layer5"));
+        }
+
+        private void LoadAnimatedEntityTexture()
+        {
+            ITextureAdapter GetAnimatedEntityTexture(string name, int frameCount, float frameSpeed, bool isLooping)
+            {
+                return new AnimationTextureAdapter(Content.Load<Texture2D>("animatedEntities/" + name), name, frameCount, frameSpeed, isLooping);
+            }
+
+            Global.AnimatedEntityTextures.Add("WoodcutterWalkRight", GetAnimatedEntityTexture("Woodcutter_walk_right", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterWalkLeft", GetAnimatedEntityTexture("Woodcutter_walk_left", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterRunRight", GetAnimatedEntityTexture("Woodcutter_run_right", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterRunLeft", GetAnimatedEntityTexture("Woodcutter_run_left", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterJumpRight", GetAnimatedEntityTexture("Woodcutter_jump_right", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterJumpLeft", GetAnimatedEntityTexture("Woodcutter_jump_left", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterIdleRight", GetAnimatedEntityTexture("Woodcutter_idle_right", 4, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterIdleLeft", GetAnimatedEntityTexture("Woodcuttuer_idle_left", 4, 0.1f, true));
+
+        }
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
@@ -161,25 +218,21 @@ namespace Iterex
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp);
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp);
 
-            Global.ParralexBackground.Draw(spriteBatch);
+            Global.ParralexBackground.Draw(_spriteBatch);
 
-            spriteBatch.End();
+            _spriteBatch.End();
 
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: _camera.TransformMatrix);
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: _camera.TransformMatrix);
 
-            Global.ActiveWorld.Draw(spriteBatch);
-            Global.Player.Draw(spriteBatch);
+            Global.ActiveWorld.Draw(_spriteBatch);
+            Global.Player.Draw(_spriteBatch);
 
-            spriteBatch.End();
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
 
-        public void Quit()
-        {
-            this.Exit();
-        }
     }
 }

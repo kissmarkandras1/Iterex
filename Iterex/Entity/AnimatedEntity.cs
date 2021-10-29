@@ -12,22 +12,14 @@ using System.Threading.Tasks;
 namespace Iterex.Entity
 {
     public class AnimatedEntity : Entity
-    {
-        protected AnimationManager _animationManager;
-        
-        public int Direction { get; private set; }
+    {   
+        public int Direction { get; protected set; }
+        public bool OnGround { get; protected set; }
 
-        public AnimatedEntity(List<ITextureAdapter> textures)
-            : base(textures)
+        public AnimatedEntity(Dictionary<string, ITextureAdapter> textures, string firstTexture)
+            : base(textures, firstTexture)
         {
 
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            //BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Black, 1);
-            //BorderDrawer.DrawRectangle(spriteBatch, TextureBox, Color.White, 1);
-            _animationManager.Draw(spriteBatch, Position);
         }
 
     }

@@ -32,7 +32,7 @@ namespace Iterex.Common.TextureAdapter
 
         int CurrentFrame
         {
-            get;
+            get; set;
         }
         int FrameCount
         {
@@ -60,6 +60,11 @@ namespace Iterex.Common.TextureAdapter
         }
 
         Rectangle ImageBox
+        {
+            get;
+        }
+
+        string Name
         {
             get;
         }

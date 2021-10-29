@@ -15,8 +15,8 @@ namespace Iterex.Entity
         public EntityAttributes Attributes;
         public List<Hitbox> Hitboxes = new List<Hitbox>();
 
-        public Entity(List<ITextureAdapter> textures) 
-            : base(textures)
+        public Entity(Dictionary<string, ITextureAdapter> textures, string firstTexture) 
+            : base(textures, firstTexture)
         {
 
         }

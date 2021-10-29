@@ -1,4 +1,5 @@
-﻿using Iterex.Common.TestingUltilities;
+﻿using Iterex.Common.Animation;
+using Iterex.Common.TestingUltilities;
 using Iterex.Common.TextureAdapter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,11 +13,12 @@ namespace Iterex.Common
 {
     public class Sprite
     {
-        protected List<ITextureAdapter> _textures;
+        protected Dictionary<string, ITextureAdapter> _textures;
+        protected AnimationManager _animationManager;
+        protected string _currentTexture;
 
         public Vector2 Position;
         public bool IsSolid;
-        public int CurrentTexture;
 
         public virtual Rectangle TextureBox
         {
@@ -24,24 +26,27 @@ namespace Iterex.Common
             {
                 return new Rectangle((int)Position.X, 
                                      (int)Position.Y,
-                                     _textures[CurrentTexture].Width, 
-                                     _textures[CurrentTexture].Height);
+                                     _textures[_currentTexture].FrameWidth, 
+                                     _textures[_currentTexture].FrameHeight);
             }
         }
         public virtual Rectangle CollisionBox
         {
             get
             {
-                return new Rectangle((int)Position.X + _textures[CurrentTexture].ImageBox.X - 1,
-                                     (int)Position.Y + _textures[CurrentTexture].ImageBox.Y - 1,
-                                     _textures[CurrentTexture].ImageBox.Width,
-                                     _textures[CurrentTexture].ImageBox.Height);
+                return new Rectangle((int)Position.X + _textures[_currentTexture].ImageBox.X - 1,
+                                     (int)Position.Y + _textures[_currentTexture].ImageBox.Y - 1,
+                                     _textures[_currentTexture].ImageBox.Width,
+                                     _textures[_currentTexture].ImageBox.Height);
             }
         }
 
-        public Sprite(List<ITextureAdapter> textures)
+        public Sprite() { }
+        public Sprite(Dictionary<string, ITextureAdapter> textures, string firstTexture)
         {
             _textures = textures;
+            _currentTexture = firstTexture;
+            _animationManager = new AnimationManager(_textures[_currentTexture]);
         }
 
         public virtual void Update(GameTime time, List<Sprite> sprites)
@@ -53,8 +58,8 @@ namespace Iterex.Common
         {
             if (_textures != null)
             {
-                //BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Red, 1);
-                _textures[CurrentTexture].Draw(spriteBatch, Position);
+                //BorderDrawer.DrawRectangle(spriteBatch, TextureBox, Color.Red, 1);
+                _animationManager.Draw(spriteBatch, Position);
             }
         }
 
@@ -62,8 +67,14 @@ namespace Iterex.Common
         {
             if (_textures != null)
             {
-                _textures[CurrentTexture].Draw(spriteBatch, Position, depth);
+                _animationManager.Draw(spriteBatch, Position, depth);
             }
+        }
+
+        public void SwitchTexture(string textureName)
+        {
+            _currentTexture = textureName;
+            _animationManager.PlayAnimation(_textures[_currentTexture]);
         }
 
     }

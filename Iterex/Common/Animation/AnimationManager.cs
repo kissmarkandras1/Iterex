@@ -11,25 +11,25 @@ namespace Iterex.Common.Animation
 {
     public class AnimationManager
     {
-        private AnimationTextureAdapter _animation;
+        private ITextureAdapter _texture;
         private float _timer;
-        public AnimationManager()
+        public AnimationManager(ITextureAdapter texture)
         {
-            _animation = null;
+            _texture = texture;
             _timer = 0.0f;
         }
-        public void PlayAnimation(AnimationTextureAdapter animation)
+        public void PlayAnimation(ITextureAdapter texture)
         {
             //Already play this animation
-            if (_animation == animation)
+            if (_texture == texture)
                 return;
-            _animation = animation;
+            _texture = texture;
             _timer = 0.0f;
         }
 
         public void StopPlaying()
         {
-            _animation.CurrentFrame = 0;
+            _texture.CurrentFrame = 0;
             _timer = 0.0f;
         }
 
@@ -37,18 +37,23 @@ namespace Iterex.Common.Animation
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (_timer > _animation.FrameSpeed)
+            if (_timer > _texture.FrameSpeed)
             {
                 _timer = 0;
-                _animation.CurrentFrame++;
-                if (_animation.CurrentFrame >= _animation.FrameCount)
-                    _animation.CurrentFrame = 0;
+                _texture.CurrentFrame++;
+                if (_texture.CurrentFrame >= _texture.FrameCount)
+                    _texture.CurrentFrame = 0;
             }
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            _animation.Draw(spriteBatch, position);
+            _texture.Draw(spriteBatch, position);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth)
+        {
+            _texture.Draw(spriteBatch, position, depth);
         }
 
     } 

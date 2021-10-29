@@ -87,11 +87,18 @@ namespace Iterex.Common.TextureAdapter
             get; private set;
         }
 
+        public string Name
+        {
+            get;
+            private set;
+        }
+
         public AnimationTextureAdapter() { }
 
-        public AnimationTextureAdapter(Texture2D texture, int frameCount, int frameSpeed, bool isLooping)
+        public AnimationTextureAdapter(Texture2D texture, string name, int frameCount, float frameSpeed, bool isLooping)
         {
             _adaptee = texture;
+            Name = name;
             FrameCount = frameCount;
             FrameSpeed = frameSpeed;
             IsLooping = isLooping;

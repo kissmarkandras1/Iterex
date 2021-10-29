@@ -15,10 +15,10 @@ namespace Iterex.World.Tile
         public int Id;
         public int BackgroundId;
         public int Light;
-        public Tile(ITexture2DAdapter textureAdapter)
-            : base(textureAdapter)
+        public Tile(Dictionary<string, ITextureAdapter> textures, string firstTexture)
+            : base(textures, firstTexture)
         {
-        }
 
+        }
     }
 }

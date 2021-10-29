@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-	  <TargetFramework>net472</TargetFramework>
+	 <TargetFramework>netcoreapp3.1</TargetFramework>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
   </PropertyGroup>
@@ -35,4 +35,5 @@
          <!-- Remove bin folder -->
          <RemoveDir Directories="$(BaseOutputPath)" />
      </Target>
+
 </Project>

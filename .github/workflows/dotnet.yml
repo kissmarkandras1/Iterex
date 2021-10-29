@@ -1,0 +1,29 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Install Monogame
+      run: dotnet new --install "MonoGame.Templates.CSharp"
+    - name: Install Monogame Content Builder
+      run: dotnet tool install -g dotnet-mgcb
+    - name: Restore dependencies
+      run: dotnet restore ./Iterex/Iterex.csproj
+    - name: Build
+      run: dotnet build ./Iterex/Iterex.csproj --no-restore
+    - name: Test
+      run: dotnet test ./Iterex/Iterex.csproj --no-build --verbosity normal
