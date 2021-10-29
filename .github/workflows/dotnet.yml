@@ -21,6 +21,7 @@ jobs:
       run: dotnet new --install "MonoGame.Templates.CSharp"
     - name: Install Monogame Content Builder
       run: dotnet tool install --global dotnet-mgcb-editor
+    - name: Register Monogame Content Builder
       run: mgcb-editor --register
     - name: Restore dependencies
       run: dotnet restore ./Iterex/Iterex.csproj
