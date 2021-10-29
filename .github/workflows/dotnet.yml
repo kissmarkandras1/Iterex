@@ -24,7 +24,7 @@ jobs:
     - name: Check files
       run: ls
     - name: Change dir
-      run: cd ./mgcb
+      run: cd Iterex
     - name: Check files
       run: ls
     - name: Restore dependencies
