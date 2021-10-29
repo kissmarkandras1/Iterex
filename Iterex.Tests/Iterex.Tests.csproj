@@ -22,12 +22,4 @@
     <ProjectReference Include="..\Iterex\Iterex.csproj" />
   </ItemGroup>
 
-<!-- Actually cleans your project when you run "dotnet clean" -->
-     <Target Name="SpicNSpan" AfterTargets="Clean">
-         <!-- Remove obj folder -->
-         <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
-         <!-- Remove bin folder -->
-         <RemoveDir Directories="$(BaseOutputPath)" />
-     </Target>
-
 </Project>
