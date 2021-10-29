@@ -27,8 +27,6 @@ jobs:
       run:  dotnet add ./Iterex.Tests/Iterex.Tests.csproj package NUnit --prerelease
     - name: Install Moq
       run: dotnet add ./Iterex.Tests/Iterex.Tests.csproj package Moq --prerelease
-    - name: Restore dependencies
-      run: dotnet restore ./Iterex/Iterex.csproj
     - name: Build
       run: dotnet clean ; dotnet build
     - name: Test
