@@ -1,4 +1,5 @@
 ﻿using Iterex.Common;
+using Iterex.Common.TextureAdapter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,8 +15,8 @@ namespace Iterex.World.Tile
         public int Id;
         public int BackgroundId;
         public int Light;
-        public Tile(Texture2D texture)
-            : base(texture)
+        public Tile(ITexture2DAdapter textureAdapter)
+            : base(textureAdapter)
         {
         }
 

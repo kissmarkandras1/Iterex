@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Iterex.Common;
 using Iterex.Common.Animation;
+using Iterex.Common.TextureAdapter;
 using Iterex.Entity.Player;
 using Iterex.World;
 using Microsoft.Xna.Framework;
@@ -22,9 +23,11 @@ namespace Iterex
 
         public static int ScreenWidth;
         public static int ScreenHeight;
-        
-        public Game1()
+
+        public Game1(int width, int height)
         {
+            ScreenWidth = width;
+            ScreenHeight = height;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -38,11 +41,9 @@ namespace Iterex
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = ScreenHeight;
+            graphics.PreferredBackBufferWidth = ScreenHeight;
             graphics.ApplyChanges();
-            ScreenWidth = graphics.PreferredBackBufferWidth;
-            ScreenHeight = graphics.PreferredBackBufferHeight;
 
             _camera = new Camera();
             _camera.ScaleRatio = 2.5f;
@@ -94,21 +95,21 @@ namespace Iterex
             Global.EntityTextures.Add("Woodcutter", Content.Load<Texture2D>("entitysprites/Woodcutter"));
 
             Dictionary<string, Animation> woodCutterAnimations = new Dictionary<string, Animation>();
-            woodCutterAnimations.Add("WalkRight", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_walk_right"), 6, true));
-            woodCutterAnimations.Add("WalkLeft", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_walk_left"), 6, true));
-            woodCutterAnimations.Add("RunRight", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_run_right"), 6, true));
-            woodCutterAnimations.Add("RunLeft", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_run_left"), 6, true));
-            woodCutterAnimations.Add("JumpRight", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_jump_right"), 6, true));
-            woodCutterAnimations.Add("JumpLeft", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_jump_left"), 6, true));
-            woodCutterAnimations.Add("IdleRight", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcutter_idle_right"), 4, true));
-            woodCutterAnimations.Add("IdleLeft", new Animation(Content.Load<Texture2D>("animatedEntities/Woodcuttuer_idle_left"), 4, true));
+            woodCutterAnimations.Add("WalkRight", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_walk_right"), 6), true));
+            woodCutterAnimations.Add("WalkLeft", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_walk_left"), 6), true));
+            woodCutterAnimations.Add("RunRight", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_run_right"), 6), true));
+            woodCutterAnimations.Add("RunLeft", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_run_left"), 6), true));
+            woodCutterAnimations.Add("JumpRight", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_jump_right"), 6), true));
+            woodCutterAnimations.Add("JumpLeft", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_jump_left"), 6), true));
+            woodCutterAnimations.Add("IdleRight", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcutter_idle_right"), 4), true));
+            woodCutterAnimations.Add("IdleLeft", new Animation(new AnimationTexture2DAdapter(Content.Load<Texture2D>("animatedEntities/Woodcuttuer_idle_left"), 4), true));
 
             Global.AnimatedEntityTextures.Add("Woodcutter", woodCutterAnimations);
 
             //MARK: Need to initialize them once we have the textures for the width of collision box
-            Global.ActiveWorld = new World.World(200,100);
+            Global.ActiveWorld = new World.World(200, 100);
             Global.ParralexBackground = new ParallaxBackground();
-            Global.Player = new Player(Global.EntityTextures["Woodcutter"], Global.AnimatedEntityTextures["Woodcutter"])
+            Global.Player = new Player(new NormalTexture2DAdapter(Global.EntityTextures["Woodcutter"]), Global.AnimatedEntityTextures["Woodcutter"])
             {
                 Position = new Vector2(10 * Global.TILE_SIZE, 10 * Global.TILE_SIZE),
                 Velocity = new Vector2(0, 0),
@@ -163,7 +164,7 @@ namespace Iterex
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp);
 
             Global.ParralexBackground.Draw(spriteBatch);
-            
+
             spriteBatch.End();
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: _camera.TransformMatrix);
@@ -174,6 +175,11 @@ namespace Iterex
             spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void Quit()
+        {
+            this.Exit();
         }
     }
 }

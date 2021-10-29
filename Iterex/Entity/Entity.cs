@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Iterex.Common;
+using Iterex.Common.TextureAdapter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,22 +12,19 @@ namespace Iterex.Entity
     {
 
         public Vector2 Velocity;
-        public float Speed;
-        public bool OnGround;
-        public int Team;
-        public int Health;
+        public EntityAttributes Attributes;
         public List<Hitbox> Hitboxes = new List<Hitbox>();
 
-        public Entity(Texture2D texture) 
-            : base(texture)
+        public Entity(List<ITextureAdapter> textures) 
+            : base(textures)
         {
 
         }
 
         public void Damage(int damage)
         {
-            Health -= damage;
-            if (Health <= 0)
+            Attributes.HP -= damage;
+            if (Attributes.HP <= 0)
                 Global.Entities.Remove(this);
         }
 
@@ -62,34 +60,6 @@ namespace Iterex.Entity
                    this.CollisionBox.Bottom > sprite.CollisionBox.Bottom &&
                    this.CollisionBox.Right > sprite.CollisionBox.Left &&
                    this.CollisionBox.Left < sprite.CollisionBox.Right;
-        }
-        #endregion
-
-        #region Pixel Collision
-        protected bool IntersectsPixel(Sprite sprite, float deltaTime)
-        {
-            Vector2 nextPosition = Position + Velocity * deltaTime;
-            Rectangle nextCollisionBox = new Rectangle((int)nextPosition.X, (int)nextPosition.Y, CollisionBox.Width, CollisionBox.Height);
-
-            int top = Math.Max(nextCollisionBox.Top, sprite.CollisionBox.Top);
-            int bottom = Math.Min(nextCollisionBox.Bottom, sprite.CollisionBox.Bottom);
-            int left = Math.Max(nextCollisionBox.Left, sprite.CollisionBox.Left);
-            int right = Math.Min(nextCollisionBox.Right, sprite.CollisionBox.Right);
-
-            Color[] thisTextureData = this.GetTextureData();
-            Color[] spriteTextureData = sprite.GetTextureData();
-
-            for (int x = left; x < right; x++)
-                for (int y = top; y < bottom; y++)
-                {
-                    Color pixelOfThis = thisTextureData[(x - nextCollisionBox.Left) + (y - nextCollisionBox.Top) * nextCollisionBox.Width];
-                    Color pixelOfSprite = spriteTextureData[(x - sprite.CollisionBox.Left) + (y - sprite.CollisionBox.Top) * sprite.CollisionBox.Width];
-
-                    if (pixelOfThis.A != 0 && pixelOfSprite.A != 0)
-                        return true;
-                }
-
-            return false;
         }
         #endregion
     }

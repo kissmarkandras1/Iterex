@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Iterex.Common;
+using Iterex.Common.TextureAdapter;
 using Iterex.World.Background;
 using Iterex.World.Tile;
 using Microsoft.Xna.Framework;
@@ -66,7 +67,7 @@ namespace Iterex.World
                         //hasUp/hasRight/hasDown/hasLeft specify whether there is another tile block in that direction
                         //There are corresponding images to each format
                         string textureName = "Tile_" + hasUp + hasRight + hasDown + hasLeft;
-                        Map[i, j] = new Tile.Tile(Global.TileTextures[textureName])
+                        Map[i, j] = new Tile.Tile(new NormalTexture2DAdapter(Global.TileTextures[textureName]))
                         {
                             Position = new Vector2(i * Global.TILE_SIZE, j * Global.TILE_SIZE),
                             Colour = Color.White,

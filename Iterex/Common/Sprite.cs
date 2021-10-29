@@ -1,4 +1,5 @@
 ﻿using Iterex.Common.TestingUltilities;
+using Iterex.Common.TextureAdapter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -11,50 +12,36 @@ namespace Iterex.Common
 {
     public class Sprite
     {
-        protected Texture2D _texture;
+        protected List<ITextureAdapter> _textures;
 
         public Vector2 Position;
-        public Color Colour = Color.White;
         public bool IsSolid;
-        public readonly Color[] TextureData;
-        public readonly Rectangle ImageBox;
+        public int CurrentTexture;
 
         public virtual Rectangle TextureBox
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, GetWidth(), GetHeight());
+                return new Rectangle((int)Position.X, 
+                                     (int)Position.Y,
+                                     _textures[CurrentTexture].Width, 
+                                     _textures[CurrentTexture].Height);
             }
         }
         public virtual Rectangle CollisionBox
         {
             get
             {
-                return new Rectangle((int)Position.X + GetImageBox().X - 1, (int)Position.Y + GetImageBox().Y - 1, GetImageBox().Width, GetImageBox().Height);
+                return new Rectangle((int)Position.X + _textures[CurrentTexture].ImageBox.X - 1,
+                                     (int)Position.Y + _textures[CurrentTexture].ImageBox.Y - 1,
+                                     _textures[CurrentTexture].ImageBox.Width,
+                                     _textures[CurrentTexture].ImageBox.Height);
             }
         }
 
-        public Sprite(Texture2D texture)
+        public Sprite(List<ITextureAdapter> textures)
         {
-            if (texture == null)
-                return;
-            _texture = texture;
-            TextureData = new Color[_texture.Width * _texture.Height];
-            _texture.GetData(TextureData);
-
-            int xMin = _texture.Width, xMax = 0, yMin = _texture.Height, yMax = 0;
-            for (int x = 0; x < _texture.Width; x++)
-                for (int y = 0; y < _texture.Height; y++)
-                {
-                    if (TextureData[y * _texture.Width + x].A != 0)
-                    {
-                        xMin = Math.Min(xMin, x);
-                        xMax = Math.Max(xMax, x);
-                        yMin = Math.Min(yMin, y);
-                        yMax = Math.Max(yMax, y);
-                    }
-                }
-            ImageBox = new Rectangle(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+            _textures = textures;
         }
 
         public virtual void Update(GameTime time, List<Sprite> sprites)
@@ -64,39 +51,20 @@ namespace Iterex.Common
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (_texture != null)
+            if (_textures != null)
             {
                 //BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Red, 1);
-                spriteBatch.Draw(_texture, Position, Colour);
+                _textures[CurrentTexture].Draw(spriteBatch, Position);
             }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch, float depth)
         {
-            if (_texture != null)
+            if (_textures != null)
             {
-                spriteBatch.Draw(_texture, Position, null, Colour, 0, new Vector2(0, 0), 1f, SpriteEffects.None, depth);
+                _textures[CurrentTexture].Draw(spriteBatch, Position, depth);
             }
         }
 
-        public virtual Color[] GetTextureData()
-        {
-            return TextureData;
-        }
-
-        public virtual Rectangle GetImageBox()
-        {
-            return ImageBox;
-        }
-
-        public virtual int GetWidth()
-        {
-            return _texture.Width;
-        }
-
-        public virtual int GetHeight()
-        {
-            return _texture.Height;
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Iterex.Common.TextureAdapter;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace Iterex.Common.Animation
 {
     public class Animation
     {
-        public Texture2D Texture { get; private set; }
+        public ITexture2DAdapter TextureAdapter { get; private set; }
         public int CurrentFrame { get; set; }
-        public int FrameCount { get; private set; }
-        public int FrameHeight { get { return Texture.Height; } }
-        public int FrameWidth { get { return Texture.Width / FrameCount; } }
+        public int FrameCount  { get { return TextureAdapter.FrameCount; } }
+        public int FrameHeight { get { return TextureAdapter.Height; } }
+        public int FrameWidth { get { return TextureAdapter.Width; } }
         public float FrameSpeed { get; set; }
         public bool IsLooping { get; private set; }
 
@@ -22,15 +23,14 @@ namespace Iterex.Common.Animation
         public readonly Dictionary<int, Color[]> FramesTextureData;
         public Rectangle ImageBox;
 
-        public Animation(Texture2D texture, int frameCount, bool isLooping)
+        public Animation(ITexture2DAdapter texture, bool isLooping)
         {
-            Texture = texture;
-            FrameCount = frameCount;
+            TextureAdapter = texture;
             IsLooping = isLooping;
             FrameSpeed = 0.1f;
 
-            TextureData = new Color[Texture.Width * Texture.Height];
-            Texture.GetData(TextureData);
+            TextureData = new Color[TextureAdapter.Width * TextureAdapter.Height * TextureAdapter.FrameCount];
+            TextureAdapter.Texture.GetData(TextureData);
 
             FramesTextureData = new Dictionary<int, Color[]>();
             InitializeFramesTextureData();
@@ -47,7 +47,7 @@ namespace Iterex.Common.Animation
                     for (int y = 0; y < FrameHeight; y++)
                     {
                         int actualX = frame * FrameWidth + x;
-                        FramesTextureData[frame][y * FrameWidth + x] = TextureData[y * Texture.Width + actualX];
+                        FramesTextureData[frame][y * FrameWidth + x] = TextureData[y * TextureAdapter.Width + actualX];
                     }
             }
         }

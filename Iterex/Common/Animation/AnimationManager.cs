@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Iterex.Common.TextureAdapter;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,14 @@ namespace Iterex.Common.Animation
 {
     public class AnimationManager
     {
-        private Animation _animation;
+        private AnimationTextureAdapter _animation;
         private float _timer;
-
-        public Color Colour = Color.White;
-
         public AnimationManager()
         {
             _animation = null;
             _timer = 0.0f;
         }
-        public void PlayAnimation(Animation animation)
+        public void PlayAnimation(AnimationTextureAdapter animation)
         {
             //Already play this animation
             if (_animation == animation)
@@ -50,33 +48,8 @@ namespace Iterex.Common.Animation
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(_animation.Texture,
-                             position,
-                             new Rectangle(_animation.CurrentFrame * _animation.FrameWidth,
-                                           0,
-                                           _animation.FrameWidth,
-                                           _animation.FrameHeight),
-                             Colour);
+            _animation.Draw(spriteBatch, position);
         }
 
-        public Color[] GetTextureData()
-        {
-            return _animation.GetCurrentFrameTextureData();
-        }
-
-        public Rectangle GetImageBox()
-        {
-            return _animation.GetCurrentFrameImageBox();
-        }
-
-        public int GetWidth()
-        {
-            return _animation.FrameWidth;
-        }
-
-        public int GetHeight()
-        {
-            return _animation.FrameHeight;
-        }
     } 
 }

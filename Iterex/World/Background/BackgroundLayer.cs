@@ -1,4 +1,5 @@
 ﻿using Iterex.Common;
+using Iterex.Common.TextureAdapter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -17,7 +18,7 @@ namespace Iterex.World.Background
         private bool _selfMoving;
         private int _repeat;
 
-        public BackgroundLayer(Texture2D texture, float scrollingSpeed, float depth, bool selfMoving, int repeat)
+        public BackgroundLayer(ITexture2DAdapter textureAdapter, float scrollingSpeed, float depth, bool selfMoving, int repeat)
         {
             _sprites = new List<Sprite>();
             _scrollingSpeed = scrollingSpeed;
@@ -27,9 +28,9 @@ namespace Iterex.World.Background
 
             for (int i = 0; i < _repeat; i++)
             {
-                _sprites.Add(new Sprite(texture)
+                _sprites.Add(new Sprite(textureAdapter)
                 {
-                    Position = new Vector2(i * texture.Width - 3*i, Game1.ScreenHeight - texture.Height),
+                    Position = new Vector2(i * textureAdapter.Width - 3*i, Game1.ScreenHeight - textureAdapter.Height),
                     IsSolid = false
                 });
                 Console.WriteLine(_sprites[i].Position);

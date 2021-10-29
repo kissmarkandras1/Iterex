@@ -1,5 +1,6 @@
 ﻿using Iterex.Common.Animation;
 using Iterex.Common.TestingUltilities;
+using Iterex.Common.TextureAdapter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,26 +14,13 @@ namespace Iterex.Entity
     public class AnimatedEntity : Entity
     {
         protected AnimationManager _animationManager;
-        protected Dictionary<string, Animation> _animations;
         
-        public int Direction { get; set; }
+        public int Direction { get; private set; }
 
-        public override Rectangle CollisionBox
+        public AnimatedEntity(List<ITextureAdapter> textures)
+            : base(textures)
         {
-            get
-            {
-                return new Rectangle((int)Position.X + GetImageBox().X - 1, 
-                                     (int)Position.Y + GetImageBox().Y - 1, 
-                                     GetImageBox().Width, 
-                                     GetImageBox().Height);
-            }
-        }
 
-        public AnimatedEntity(Texture2D texture, Dictionary<string, Animation> animations)
-            : base(texture)
-        {
-            _animationManager = new AnimationManager();
-            _animations = animations;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -42,24 +30,5 @@ namespace Iterex.Entity
             _animationManager.Draw(spriteBatch, Position);
         }
 
-        public override Color[] GetTextureData()
-        {
-            return _animationManager.GetTextureData();
-        }
-
-        public override Rectangle GetImageBox()
-        {
-            return _animationManager.GetImageBox();
-        }
-
-        public override int GetWidth()
-        {
-            return _animationManager.GetWidth();
-        }
-
-        public override int GetHeight()
-        {
-            return _animationManager.GetHeight();
-        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Iterex.Common;
 using Iterex.Common.Animation;
+using Iterex.Common.TextureAdapter;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,8 +12,8 @@ namespace Iterex.Entity.Player
 {
     public class Player : AnimatedEntity
     {
-        public Player(Texture2D texture, Dictionary<string, Animation> animations)
-            : base(texture, animations)
+        public Player(List<ITextureAdapter> textureAdapter)
+            : base(textureAdapter)
         {
 
         }
