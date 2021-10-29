@@ -20,7 +20,7 @@ jobs:
     - name: Install Monogame
       run: dotnet new --install "MonoGame.Templates.CSharp"
     - name: Install Monogame Content Builder
-      run: dotnet tool install -g dotnet-mgcb
+      run: dotnet add package MonoGame.Content.Builder.Linux --version 3.7.0.8
     - name: Restore dependencies
       run: dotnet restore ./Iterex/Iterex.csproj
     - name: Build
