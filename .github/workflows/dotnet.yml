@@ -24,6 +24,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Iterex/Iterex.csproj
     - name: Build
-      run: dotnet clean ; dotnet build --no-restore
+      run: dotnet clean ; dotnet build
     - name: Test
       run: dotnet test --no-build --verbosity normal
