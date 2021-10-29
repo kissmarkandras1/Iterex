@@ -24,9 +24,9 @@ jobs:
     - name: Install Monogame Content Builder
       run: dotnet add ./Iterex/Iterex.csproj package MonoGame.Content.Builder.Task --version 3.8.0.1641
     - name: Install NUnit
-      run:  dotnet add ./Iterex.Tests/Iterex.Tests.csproj package NUnit --prerelease
+      run:  dotnet add ./Iterex.Tests/Iterex.Tests.csproj package NUnit --version 3.13.2
     - name: Install Moq
-      run: dotnet add ./Iterex.Tests/Iterex.Tests.csproj package Moq --prerelease
+      run: dotnet add ./Iterex.Tests/Iterex.Tests.csproj package Moq --version 4.16.1
     - name: Build
       run: dotnet clean ; dotnet build  ./Iterex/Iterex.csproj --no-restore
     - name: Test
