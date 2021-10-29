@@ -2,21 +2,23 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+	- "**"
   pull_request:
-    branches: [ main ]
+    branches:
+	- "**"
 
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 3.1.x
     - name: Install Monogame
       run: dotnet new --install "MonoGame.Templates.CSharp"
     - name: Install Monogame Framework DesktopGL
@@ -28,6 +30,6 @@ jobs:
     - name: Install Moq
       run: dotnet add ./Iterex.Tests/Iterex.Tests.csproj package Moq --prerelease
     - name: Build
-      run: dotnet clean ; dotnet build
+      run: dotnet clean ; dotnet build  ./Iterex/Iterex.csproj --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ./Iterex.Tests/Iterex.Tests.csproj --no-build --verbosity normal
