@@ -2,9 +2,11 @@ name: .NET
 
 on:
   push:
-    branches: [ main, refactored-branch ]
+    branches: 
+    - '*'
   pull_request:
-    branches: [ main, refactored-branch ]
+    branches:
+    - '*'
 
 jobs:
   build:
@@ -17,12 +19,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Install Monogame
-      run: dotnet new --install "MonoGame.Templates.CSharp"
-    - name: Install Monogame Framework DesktopGL
-      run: dotnet add ./Iterex/Iterex.csproj package MonoGame.Framework.DesktopGL --version 3.8.0.1641
-    - name: Install Monogame Content Builder
-      run: dotnet add ./Iterex/Iterex.csproj package MonoGame.Content.Builder.Task --version 3.8.0.1641
     - name: Install NUnit
       run:  dotnet add ./Iterex.Tests/Iterex.Tests.csproj package NUnit --version 3.13.2
     - name: Install Moq
