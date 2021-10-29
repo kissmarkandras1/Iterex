@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net3.1-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="*" />
+    <PackageReference Include="Moq" Version="*" />
+    <PackageReference Include="NUnit" Version="*" />
+    <PackageReference Include="NUnit3TestAdapter" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Iterex\Iterex.csproj" />
+  </ItemGroup>
+
+<!-- Actually cleans your project when you run "dotnet clean" -->
+     <Target Name="SpicNSpan" AfterTargets="Clean">
+         <!-- Remove obj folder -->
+         <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+         <!-- Remove bin folder -->
+         <RemoveDir Directories="$(BaseOutputPath)" />
+     </Target>
+
+</Project>
