@@ -20,6 +20,8 @@ jobs:
     - name: Install Monogame
       run: dotnet new --install "MonoGame.Templates.CSharp"
     - name: Install Monogame Content Builder
+      run: dotnet add ./Iterex/Iterex.csproj package MonoGame.Framework.DesktopGL --prerelease
+    - name: Install Monogame Content Builder
       run: dotnet add ./Iterex/Iterex.csproj package MonoGame.Content.Builder.Task --prerelease
     - name: Restore dependencies
       run: dotnet restore ./Iterex/Iterex.csproj
