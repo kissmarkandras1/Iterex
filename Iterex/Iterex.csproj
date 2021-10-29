@@ -36,4 +36,8 @@
          <RemoveDir Directories="$(BaseOutputPath)" />
      </Target>
 
+<<<<<<< HEAD
 </Project>
+=======
+</Project>
+>>>>>>> 46f8dbe15fc9e99bdc66e6c922d10c1f5989f1a4
