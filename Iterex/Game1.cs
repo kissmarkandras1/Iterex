@@ -22,7 +22,7 @@ namespace Iterex
 
         public static int ScreenWidth;
         public static int ScreenHeight;
-        
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -106,7 +106,7 @@ namespace Iterex
             Global.AnimatedEntityTextures.Add("Woodcutter", woodCutterAnimations);
 
             //MARK: Need to initialize them once we have the textures for the width of collision box
-            Global.ActiveWorld = new World.World(200,100);
+            Global.ActiveWorld = new World.World(200, 100);
             Global.ParralexBackground = new ParallaxBackground();
             Global.Player = new Player(Global.EntityTextures["Woodcutter"], Global.AnimatedEntityTextures["Woodcutter"])
             {
@@ -163,7 +163,7 @@ namespace Iterex
             spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp);
 
             Global.ParralexBackground.Draw(spriteBatch);
-            
+
             spriteBatch.End();
 
             spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: _camera.TransformMatrix);
