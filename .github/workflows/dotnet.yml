@@ -22,6 +22,7 @@ jobs:
     - name: Install Monogame Content Builder
       run: dotnet tool install --tool-path ./ dotnet-mgcb
     - name: Check files
+      run: cd mgcb
       run: ls
     - name: Restore dependencies
       run: dotnet restore ./Iterex/Iterex.csproj
