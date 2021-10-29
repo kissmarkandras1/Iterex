@@ -20,7 +20,7 @@ jobs:
     - name: Install Monogame
       run: dotnet new --install "MonoGame.Templates.CSharp"
     - name: Install Monogame Content Builder
-      run: dotnet tool install --global dotnet-mgcb
+      run: dotnet tool install --tool-path ./ dotnet-mgcb
     - name: Check files
       run: ls
     - name: Restore dependencies
