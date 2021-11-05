@@ -145,6 +145,12 @@ namespace Iterex
             Global.TileTextures.Add("Tile_1101", GetTileTexture("Tile_1101"));
             Global.TileTextures.Add("Tile_1110", GetTileTexture("Tile_1110"));
             Global.TileTextures.Add("Tile_1111", GetTileTexture("Tile_1111"));
+
+            //load tree textures
+            Global.TileTextures.Add("tree1", GetTileTexture("tree1"));
+            Global.TileTextures.Add("tree2", GetTileTexture("tree2"));
+            Global.TileTextures.Add("tree3", GetTileTexture("tree3"));
+
         }
 
         private void LoadBackgrounds()
@@ -230,6 +236,16 @@ namespace Iterex
 
             Global.ActiveWorld.Draw(_spriteBatch);
             Global.Player.Draw(_spriteBatch);
+
+            //test
+            /*Sprite treetop = new Sprite(new Dictionary<string, ITextureAdapter>() { { "tree3", Global.TileTextures["tree3"] } },
+                                                  "tree3")
+            {
+                Position = new Vector2(10 * Global.TILE_SIZE, 20 * Global.TILE_SIZE),
+                IsSolid = false
+            };
+
+            treetop.Draw(_spriteBatch);*/
 
             _spriteBatch.End();
 

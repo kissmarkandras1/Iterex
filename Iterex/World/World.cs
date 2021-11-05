@@ -89,6 +89,16 @@ namespace Iterex.World
                     }
                 }
             }
+
+            WorldGenerateTrees();
+
+            /*
+            //Generate trees at tile coordinates
+            GenerateTree(10,20);
+
+            //Generate tree with specified height
+            GenerateTree(15, 20, 3);
+            */
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -101,6 +111,82 @@ namespace Iterex.World
                         Map[i, j].Draw(spriteBatch);
                 }
             }
+        }
+
+        //Finds the height of the first tile at a given width
+        public int findSurface(int width)
+        {
+            for (int i=0;i<Map.GetLength(1);i++)
+            {
+                if (Map[width,i] != null)
+                {
+                    //found something that is not air -> it's the surface block
+                    return i;
+                }
+            }
+            return -1;  //there is no surface (impossible?)
+        }
+
+        //logic for generating trees in the world
+        public void WorldGenerateTrees(int spacing = 3)
+        {
+            int c = 0;
+            for (int i = 0; i < Map.GetLength(0); i++)
+            {
+
+                if (c == spacing+1)
+                {
+                    c = 0;
+                    int surfaceLevel = findSurface(i);
+                    int h = Global.Random.Next(3,9);
+                    GenerateTree(i, surfaceLevel-1, h);    //one above the surface block
+                }
+
+                c++;
+            }
+        }
+
+        //generate one tree
+        public void GenerateTree(int x, int y, int h = 5)
+        {
+            //tree doesn't generate if there isn't enough space
+            if (y - h < 0) //index out of bounds
+            {
+                return;
+            }
+
+            //generate tree trunk
+            Map[x, y] = new Tile.Tile(new Dictionary<string, ITextureAdapter>() { { "tree1", Global.TileTextures["tree1"] } },
+                                                  "tree1")
+            {
+                Position = new Vector2(x * Global.TILE_SIZE, y * Global.TILE_SIZE),
+                IsSolid = false
+            };
+
+            for (int i=1;i<h-1;i++)
+            {
+                //generate tree body
+                Map[x, y-i] = new Tile.Tile(new Dictionary<string, ITextureAdapter>() { { "tree2", Global.TileTextures["tree2"] } },
+                                                      "tree2")
+                {
+                    Position = new Vector2(x * Global.TILE_SIZE, (y-i) * Global.TILE_SIZE),
+                    IsSolid = false
+                };
+            }
+
+            //generate tree top (I'm not sure if this should be a tile, but if not, the tree has to be able
+            //  to reference it when destroyed so the tree could be a different class?
+
+            //the tree3_large image looked okay but is was off-center because it was treated as a tile.
+             Map[x, y - h] = new Tile.Tile(new Dictionary<string, ITextureAdapter>() { { "tree3", Global.TileTextures["tree3"] } },
+                                                   "tree3")
+             {
+                 Position = new Vector2(x * Global.TILE_SIZE - 16, (y - h) * Global.TILE_SIZE),
+                 IsSolid = false
+             };
+
+            
+
         }
     }
 }
