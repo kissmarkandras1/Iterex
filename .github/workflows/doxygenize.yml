@@ -4,9 +4,10 @@ jobs:
   Doxygenize:
     runs-on: ubuntu-latest
     steps:
-     - name: list
-       run: ls
      - name: Doxygenize
        uses: langroodi/doxygenize@v1.4
        with:
             ghpagesbranch: 'main'
+            doxygenconf: '/home/runner/work/Iterex/Iterex/Doxyfile'
+            htmloutput: '/home/runner/work/Iterex/Iterex/docs'
+            ghpagesdir: '/home/runner/work/Iterex/Iterex/docs'
