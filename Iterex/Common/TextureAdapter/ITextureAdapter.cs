@@ -69,8 +69,8 @@ namespace Iterex.Common.TextureAdapter
             get;
         }
 
-        void Draw(SpriteBatch spriteBatch, Vector2 position);
+        void Draw(SpriteBatch spriteBatch, Vector2 position, bool flip = false);
 
-        void Draw(SpriteBatch spriteBatch, Vector2 position, float depth);
+        void Draw(SpriteBatch spriteBatch, Vector2 position, float depth, bool flip = false);
     }
 }

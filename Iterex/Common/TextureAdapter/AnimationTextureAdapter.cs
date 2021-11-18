@@ -124,23 +124,13 @@ namespace Iterex.Common.TextureAdapter
                         }
                     }
             }
-            ImageBox = new Rectangle(xMin, yMin, xMax - xMin + 1, yMax - yMin + 1);
+            ImageBox = new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
             #endregion
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, bool flip = false)
         {
-            spriteBatch.Draw(Texture,
-                             position,
-                             new Rectangle(CurrentFrame * FrameWidth,
-                                           0,
-                                           FrameWidth,
-                                           FrameHeight),
-                             Colour);
-        }
-
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth)
-        {
+            SpriteEffects effect = flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             spriteBatch.Draw(Texture,
                              position,
                              new Rectangle(CurrentFrame * FrameWidth,
@@ -151,7 +141,24 @@ namespace Iterex.Common.TextureAdapter
                              0,
                              new Vector2(0, 0),
                              1f,
-                             SpriteEffects.None,
+                             effect,
+                             0f);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth, bool flip = false)
+        {
+            SpriteEffects effect = flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            spriteBatch.Draw(Texture,
+                             position,
+                             new Rectangle(CurrentFrame * FrameWidth,
+                                           0,
+                                           FrameWidth,
+                                           FrameHeight),
+                             Colour,
+                             0,
+                             new Vector2(0, 0),
+                             1f,
+                             effect,
                              depth);
         }
     }

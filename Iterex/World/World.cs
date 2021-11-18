@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Iterex.Common;
 using Iterex.Common.TextureAdapter;
+using Iterex.Entity;
+using Iterex.Entity.Enemy;
 using Iterex.World.Background;
 using Iterex.World.Tile;
 using Microsoft.Xna.Framework;
@@ -32,10 +34,11 @@ namespace Iterex.World
             int[] heightMap = new int[width];
             int[,] tileMap = new int[width, height];
 
+            heightMap[0] = Global.Random.Next(10, Math.Min(30, height));
             //MARK: Generates peaks
-            for (int i = 0; i < width; i += 10)
+            for (int i = 10; i < width; i += 10)
             {
-                heightMap[i] = Global.Random.Next(0, Math.Min(height, 30));
+                heightMap[i] = heightMap[i-10] + Global.Random.Next(-5, 5);
             }
 
             //MARK: And connects them
@@ -50,7 +53,7 @@ namespace Iterex.World
 
             for (int i = 0; i < width; ++i)
                 for (int j = 0; j < height; ++j)
-                    tileMap[i, j] = (i == 0 || i == width - 1 || j == height - 1 || j > heightMap[i]) ? 1 : 0;
+                    tileMap[i, j] = (i < 10 || i > width - 10 || j == height - 1 || j > heightMap[i]) ? 1 : 0;
 
             return tileMap;
         }
@@ -91,7 +94,7 @@ namespace Iterex.World
             }
 
             WorldGenerateTrees();
-
+            WorldGenerateEnemies();
             /*
             //Generate trees at tile coordinates
             GenerateTree(10,20);
@@ -114,7 +117,7 @@ namespace Iterex.World
         }
 
         //Finds the height of the first tile at a given width
-        public int findSurface(int width)
+        public int FindSurface(int width)
         {
             for (int i=0;i<Map.GetLength(1);i++)
             {
@@ -137,13 +140,74 @@ namespace Iterex.World
                 if (c == spacing+1)
                 {
                     c = 0;
-                    int surfaceLevel = findSurface(i);
+                    int surfaceLevel = FindSurface(i);
                     int h = Global.Random.Next(3,9);
                     GenerateTree(i, surfaceLevel-1, h);    //one above the surface block
                 }
 
                 c++;
             }
+        }
+
+        public void WorldGenerateEnemies()
+        {
+            for (int pos = 0; pos < Map.GetLength(0); pos += Global.Random.Next(10, 15))
+            {
+                int surfaceLevel = FindSurface(pos);
+
+                Global.Entities.Add(GenerateEnemy(new Vector2(pos * Global.TILE_SIZE, (surfaceLevel - 2) * Global.TILE_SIZE)));
+            }
+
+        }
+
+        public Entity.Entity GenerateEnemy(Vector2 position)
+        {
+            Entity.Entity enemy = null;
+            int type = Global.Random.Next(1, 3);
+            int randomHP = Global.Random.Next(80, 500);
+            int randomMP = Global.Random.Next(80, 500);
+            int randomDamage = Global.Random.Next(10, 50);
+
+            if (type == 1)
+            {
+                enemy = new Centipede()
+                {
+                    Position = position,
+                    Velocity = new Vector2(0, 0),
+                    Attributes = new EntityAttributes()
+                    {
+                        MaxHP = randomHP,
+                        MaxMP = randomMP,
+                        HP = randomHP,
+                        MP = randomMP,
+                        Damage = randomDamage,
+                        DodgeChance = 20,
+                        Team = 2,
+                        Speed = 15f
+                    }
+                };
+            }
+            else if (type == 2)
+            {
+                enemy = new BigBloated()
+                {
+                    Position = position,
+                    Velocity = new Vector2(0, 0),
+                    Attributes = new EntityAttributes()
+                    {
+                        MaxHP = randomHP,
+                        MaxMP = randomMP,
+                        HP = randomHP,
+                        MP = randomMP,
+                        Damage = randomDamage,
+                        DodgeChance = 20,
+                        Team = 2,
+                        Speed = 30f
+                    }
+                };
+            }
+
+            return enemy;
         }
 
         //generate one tree

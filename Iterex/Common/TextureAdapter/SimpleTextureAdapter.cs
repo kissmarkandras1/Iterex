@@ -121,13 +121,23 @@ namespace Iterex.Common.TextureAdapter
             #endregion
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, bool flip = false)
         {
-            spriteBatch.Draw(Texture, position, Colour);
+            SpriteEffects effect = (flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+            spriteBatch.Draw(Texture,
+                             position,
+                             null,
+                             Colour,
+                             0,
+                             new Vector2(0, 0),
+                             1f,
+                             effect,
+                             0f);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth, bool flip = false)
         {
+            SpriteEffects effect = (flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
             spriteBatch.Draw(Texture, 
                              position, 
                              null, 
@@ -135,7 +145,7 @@ namespace Iterex.Common.TextureAdapter
                              0,
                              new Vector2(0, 0),
                              1f, 
-                             SpriteEffects.None, 
+                             effect,
                              depth);
         }
     }

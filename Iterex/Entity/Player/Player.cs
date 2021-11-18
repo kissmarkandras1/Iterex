@@ -35,24 +35,25 @@ namespace Iterex.Entity.Player
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             Move();
+            DetectAttacking(gameTime);
             SetAnimation();
             _animationManager.Update(gameTime);
 
             //Check for collision
-            foreach (Sprite sprite in sprites)
+            foreach (Sprite sprite in GetSurroundingTiles())
             {
                 if (sprite == this || !sprite.IsSolid)
                     continue;
 
-                if ((this.Velocity.X * deltaTime > 0 && this.IsTouchingLeft(sprite, deltaTime)) ||
-                    (this.Velocity.X * deltaTime < 0 && this.IsTouchingRight(sprite, deltaTime)))
+                if ((this.Velocity.X * deltaTime > 0 && this.IsTouchingLeft(sprite, this.Velocity.X * deltaTime)) ||
+                    (this.Velocity.X * deltaTime < 0 && this.IsTouchingRight(sprite, this.Velocity.X * deltaTime)))
                 {
                     this.Velocity.X = 0;
                 }
-                if ((this.Velocity.Y * deltaTime > 0 && this.IsTouchingTop(sprite, deltaTime)) ||
-                    (this.Velocity.Y * deltaTime < 0 && this.IsTouchingBottom(sprite, deltaTime)))
+                if ((this.Velocity.Y * deltaTime > 0 && this.IsTouchingTop(sprite, this.Velocity.Y * deltaTime)) ||
+                    (this.Velocity.Y * deltaTime < 0 && this.IsTouchingBottom(sprite, this.Velocity.Y * deltaTime)))
                 {
-                    if (this.IsTouchingTop(sprite, deltaTime))
+                    if (this.IsTouchingTop(sprite, this.Velocity.Y * deltaTime))
                         this.OnGround = true;
                     this.Velocity.Y = 0;
                 }
@@ -62,9 +63,35 @@ namespace Iterex.Entity.Player
             Position += Velocity * deltaTime;
         }
 
+        private void DetectAttacking(GameTime gameTime)
+        {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (Global.KeyboardState.IsKeyDown(Keys.Space))
+            {
+                if (!this.Attributes.IsAttacking )
+                {
+                    this.Attributes.StartAttacking = true;
+                    Velocity.X += Direction * EntityConfiguration.MaxSpeed.X * Attributes.Speed;
+
+                    foreach (Entity entity in Global.Entities)
+                    {
+                        if (entity is Enemy.Enemy)
+                        {
+                            if (this.CollisionBox.Intersects(entity.CollisionBox))
+                            {
+                                DealDamage(entity);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void Move()
         {
             //MARK: Is pressing A or D or not
+            _preDirection = Direction;
             bool HorizontalMoveRequest = false;
 
             if (Global.KeyboardState.IsKeyDown(Keys.D))
@@ -106,19 +133,18 @@ namespace Iterex.Entity.Player
                     Velocity.X -= Math.Min(EntityConfiguration.DecelerationX.X * Attributes.Speed, Velocity.X);
                 if (Velocity.X < 0)
                     Velocity.X += Math.Min(EntityConfiguration.DecelerationX.X * Attributes.Speed, -Velocity.X);
-            } 
-        }
+            }
 
-        private void SetAnimation()
-        {
-            int preDirection = Direction;
             if (Velocity.X > 0)
                 Direction = 1;
-            if (Velocity.X < 0)
+            else if (Velocity.X < 0)
                 Direction = -1;
+        }
 
+        protected void SetAnimation()
+        {
             //Adjust position after turning
-            if (preDirection != Direction)
+            if (_preDirection != Direction)
             {
                 if (Direction == 1)
                     Position.X += TextureBox.Width / 2;
@@ -126,25 +152,75 @@ namespace Iterex.Entity.Player
                     Position.X -= TextureBox.Width / 2;
             }
 
-            if (!OnGround)
+            if (IsDead())
             {
                 if (Direction == 1)
-                    SwitchTexture("JumpRight");
+                    SwitchTexture("Dead");
                 else
-                    SwitchTexture("JumpLeft");
+                    SwitchTexture("Dead", true);
+
+                this.Attributes.IsAttacking = false;
+                this.Attributes.StartAttacking = false;
             }
-            else if (Velocity.X > 0) 
-                SwitchTexture("RunRight");
+            else if (this.Attributes.StartReceivingDamage || this.Attributes.IsReceivingDamage)
+            {
+                if (this.Attributes.StartReceivingDamage)
+                {
+                    if (Direction == 1)
+                        SwitchTexture("Hurt");
+                    else
+                        SwitchTexture("Hurt", true);
+
+                    this.Attributes.StartReceivingDamage = false;
+                    this.Attributes.IsReceivingDamage = true;
+                }
+
+                if (this.Attributes.IsReceivingDamage && IsDone())
+                {
+                    this.Attributes.IsReceivingDamage = false;
+                }
+
+                this.Attributes.IsAttacking = false;
+                this.Attributes.StartAttacking = false;
+            }
+            else if (this.Attributes.StartAttacking || this.Attributes.IsAttacking)
+            {
+                if (this.Attributes.StartAttacking)
+                {
+                    Random random = new Random();
+                    int attackType = random.Next(1, 4);
+
+                    if (Direction == 1)
+                        SwitchTexture("Attack" + attackType);
+                    else
+                        SwitchTexture("Attack" + attackType, true);
+
+                    this.Attributes.StartAttacking = false;
+                    this.Attributes.IsAttacking = true;
+                }
+
+                if (this.Attributes.IsAttacking && IsDone())
+                    this.Attributes.IsAttacking = false;
+            }
+            else if (!OnGround)
+            {
+                if (Direction == 1)
+                    SwitchTexture("Jump");
+                else
+                    SwitchTexture("Jump", true);
+            }
+            else if (Velocity.X > 0)
+                SwitchTexture("Run");
             else if (Velocity.X < 0)
-                SwitchTexture("RunLeft");
+                SwitchTexture("Run", true);
             else
             {
                 if (Direction > 0)
-                    SwitchTexture("IdleRight");
+                    SwitchTexture("Idle");
                 else
-                    SwitchTexture("IdleLeft");
+                    SwitchTexture("Idle", true);
             }
-            
+
         }
     }
 }

@@ -16,7 +16,22 @@ namespace Iterex.Entity
         public int DodgeChance;
         public int Team;
         public float Speed;
+        public bool StartAttacking;
+        public bool IsAttacking;
+        public bool StartReceivingDamage;
+        public bool IsReceivingDamage;
+        public bool StartDeadAnimation;
+        public bool IsPlayingDeadAnimation;
+        public bool IsRemovable;
 
-        public EntityAttributes() { }
+        public EntityAttributes() {
+            StartAttacking = false;
+            IsAttacking = false;
+            StartReceivingDamage = false;
+            IsReceivingDamage = false;
+            StartDeadAnimation = false;
+            IsPlayingDeadAnimation = false;
+            IsRemovable = false;
+        }
     }
 }

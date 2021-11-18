@@ -13,10 +13,12 @@ namespace Iterex.Common.Animation
     {
         private ITextureAdapter _texture;
         private float _timer;
+        private bool _isDone;
         public AnimationManager(ITextureAdapter texture)
         {
             _texture = texture;
             _timer = 0.0f;
+            _isDone = false;
         }
         public void PlayAnimation(ITextureAdapter texture)
         {
@@ -25,6 +27,7 @@ namespace Iterex.Common.Animation
                 return;
             _texture = texture;
             _timer = 0.0f;
+            _isDone = false;
         }
 
         public void StopPlaying()
@@ -37,23 +40,40 @@ namespace Iterex.Common.Animation
         {
             _timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            if (_isDone)
+                return;
+
             if (_timer > _texture.FrameSpeed)
             {
                 _timer = 0;
                 _texture.CurrentFrame++;
                 if (_texture.CurrentFrame >= _texture.FrameCount)
+                {
                     _texture.CurrentFrame = 0;
+                    if (_texture.IsLooping == false)
+                        _isDone = true;
+                }
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public bool IsDone()
         {
-            _texture.Draw(spriteBatch, position);
+            return _isDone;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth)
+        public ITextureAdapter GetTexture()
         {
-            _texture.Draw(spriteBatch, position, depth);
+            return _texture;
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, bool flip = false)
+        {
+            _texture.Draw(spriteBatch, position, flip);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, float depth, bool flip = false)
+        {
+            _texture.Draw(spriteBatch, position, depth, flip);
         }
 
     } 

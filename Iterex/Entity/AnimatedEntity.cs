@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 namespace Iterex.Entity
 {
     public class AnimatedEntity : Entity
-    {   
+    {
+        protected int _preDirection;
         public int Direction { get; protected set; }
         public bool OnGround { get; protected set; }
 
@@ -28,6 +29,12 @@ namespace Iterex.Entity
             : base(textures, firstTexture)
         {
 
+        }
+
+
+        protected bool IsDone()
+        {
+            return _animationManager.IsDone();
         }
 
     }

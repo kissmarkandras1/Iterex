@@ -21,7 +21,7 @@ namespace Iterex.Common
             Matrix translateToCenter = Matrix.CreateTranslation(Game1.ScreenWidth / 2,
                                                                 Game1.ScreenHeight / 2,
                                                                 0);
-            Console.WriteLine(Game1.ScreenWidth);
+
             Matrix scale = Matrix.CreateScale(ScaleRatio);
 
             TransformMatrix = scale * translateToOrigin * translateToCenter;

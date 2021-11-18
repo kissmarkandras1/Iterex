@@ -19,6 +19,7 @@ namespace Iterex.Common
 
         public Vector2 Position;
         public bool IsSolid;
+        public bool IsFlip = false;
 
         public virtual Rectangle TextureBox
         {
@@ -34,7 +35,16 @@ namespace Iterex.Common
         {
             get
             {
-                return new Rectangle((int)Position.X + _textures[_currentTexture].ImageBox.X,
+                int marginLeft = _textures[_currentTexture].ImageBox.X;
+                int marginRight = _textures[_currentTexture].FrameWidth - _textures[_currentTexture].ImageBox.Right;
+
+                if (IsFlip)
+                    return new Rectangle((int)Position.X + marginRight,
+                                     (int)Position.Y + _textures[_currentTexture].ImageBox.Y,
+                                     _textures[_currentTexture].ImageBox.Width,
+                                     _textures[_currentTexture].ImageBox.Height);
+
+                return new Rectangle((int)Position.X + marginLeft,
                                      (int)Position.Y + _textures[_currentTexture].ImageBox.Y,
                                      _textures[_currentTexture].ImageBox.Width,
                                      _textures[_currentTexture].ImageBox.Height);
@@ -68,8 +78,9 @@ namespace Iterex.Common
         {
             if (_textures != null)
             {
-                //BorderDrawer.DrawRectangle(spriteBatch, TextureBox, Color.Red, 1);
-                _animationManager.Draw(spriteBatch, Position);
+                //BorderDrawer.DrawRectangle(spriteBatch, TextureBox, Color.Black, 1);
+                //BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Red, 1);
+                _animationManager.Draw(spriteBatch, Position, IsFlip);
             }
         }
 
@@ -77,13 +88,14 @@ namespace Iterex.Common
         {
             if (_textures != null)
             {
-                _animationManager.Draw(spriteBatch, Position, depth);
+                _animationManager.Draw(spriteBatch, Position, depth, IsFlip);
             }
         }
 
-        public void SwitchTexture(string textureName)
+        public void SwitchTexture(string textureName, bool flip = false)
         {
             _currentTexture = textureName;
+            IsFlip = flip;
             _animationManager.PlayAnimation(_textures[_currentTexture]);
         }
 

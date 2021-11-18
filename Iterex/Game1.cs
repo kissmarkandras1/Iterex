@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Iterex.Common;
 using Iterex.Common.Animation;
 using Iterex.Common.TextureAdapter;
@@ -68,6 +69,9 @@ namespace Iterex
             Global.EntityTextures = new Dictionary<string, ITextureAdapter>();
             Global.TileTextures = new Dictionary<string, ITextureAdapter>();
             Global.AnimatedEntityTextures = new Dictionary<string, ITextureAdapter>();
+            Global.PlayerAnimations = new Dictionary<string, Dictionary<string, ITextureAdapter>>();
+            Global.EnemyAnimations = new Dictionary<string, Dictionary<string, ITextureAdapter>>();
+            Global.Entities = new List<Entity.Entity>();
         }
 
         /// <summary>
@@ -85,12 +89,12 @@ namespace Iterex
             LoadAnimatedEntityTexture();
 
             //MARK: Need to initialize them once we have the textures for the width of collision box
-            Global.ActiveWorld = new World.World(200, 100);
+            Global.ActiveWorld = new World.World(300, 100);
             Global.ParralexBackground = new ParallaxBackground();
 
-            Global.Player = new Player(GetPlayerAnimations("Woodcutter"), "IdleRight")
+            Global.Player = new GraveRobber()
             {
-                Position = new Vector2(10 * Global.TILE_SIZE, 10 * Global.TILE_SIZE),
+                Position = new Vector2(10 * Global.TILE_SIZE, 0 * Global.TILE_SIZE),
                 Velocity = new Vector2(0, 0),
                 Attributes = new EntityAttributes()
                 {
@@ -104,24 +108,46 @@ namespace Iterex
                     Speed = 70f
                 }
             };
-
+            Global.Entities.Add(Global.Player);
         }
 
         private Dictionary<string, ITextureAdapter> GetPlayerAnimations(string playerName)
         {
             Dictionary<string, ITextureAdapter> animationList = new Dictionary<string, ITextureAdapter>();
 
-            animationList.Add("WalkRight", Global.AnimatedEntityTextures[playerName + "WalkRight"]);
-            animationList.Add("WalkLeft", Global.AnimatedEntityTextures[playerName + "WalkLeft"]);
-            animationList.Add("RunRight", Global.AnimatedEntityTextures[playerName + "RunRight"]);
-            animationList.Add("RunLeft", Global.AnimatedEntityTextures[playerName + "RunLeft"]);
-            animationList.Add("JumpRight", Global.AnimatedEntityTextures[playerName + "JumpRight"]);
-            animationList.Add("JumpLeft", Global.AnimatedEntityTextures[playerName + "JumpLeft"]);
-            animationList.Add("IdleRight", Global.AnimatedEntityTextures[playerName + "IdleRight"]);
-            animationList.Add("IdleLeft", Global.AnimatedEntityTextures[playerName + "IdleLeft"]);
+            animationList.Add("Walk", Global.AnimatedEntityTextures[playerName + "Walk"]);
+            animationList.Add("Run", Global.AnimatedEntityTextures[playerName + "Run"]);
+            animationList.Add("Jump", Global.AnimatedEntityTextures[playerName + "Jump"]);
+            animationList.Add("Idle", Global.AnimatedEntityTextures[playerName + "Idle"]);
+            animationList.Add("Attack1", Global.AnimatedEntityTextures[playerName + "Attack1"]);
+            animationList.Add("Attack2", Global.AnimatedEntityTextures[playerName + "Attack2"]);
+            animationList.Add("Attack3", Global.AnimatedEntityTextures[playerName + "Attack3"]);
+            animationList.Add("Climb", Global.AnimatedEntityTextures[playerName + "Climb"]);
+            animationList.Add("Dead", Global.AnimatedEntityTextures[playerName + "Dead"]);
+            animationList.Add("Hurt", Global.AnimatedEntityTextures[playerName + "Hurt"]);
+            animationList.Add("Push", Global.AnimatedEntityTextures[playerName + "Push"]);
 
             return animationList;
         }
+
+
+        private Dictionary<string, ITextureAdapter> GetEnemyAnimations(string enemyName)
+        {
+            Dictionary<string, ITextureAdapter> animationList = new Dictionary<string, ITextureAdapter>();
+
+            animationList.Add("Run", Global.AnimatedEntityTextures[enemyName + "Run"]);
+            animationList.Add("Idle", Global.AnimatedEntityTextures[enemyName + "Idle"]);
+            animationList.Add("Attack1", Global.AnimatedEntityTextures[enemyName + "Attack1"]);
+            animationList.Add("Attack2", Global.AnimatedEntityTextures[enemyName + "Attack2"]);
+            animationList.Add("Attack3", Global.AnimatedEntityTextures[enemyName + "Attack3"]);
+            animationList.Add("Attack4", Global.AnimatedEntityTextures[enemyName + "Attack4"]);
+            animationList.Add("Dead", Global.AnimatedEntityTextures[enemyName + "Dead"]);
+            animationList.Add("Hurt", Global.AnimatedEntityTextures[enemyName + "Hurt"]);
+            animationList.Add("Sneer", Global.AnimatedEntityTextures[enemyName + "Sneer"]);
+
+            return animationList;
+        }
+
         private void LoadTiles()
         {
             ITextureAdapter GetTileTexture(string name)
@@ -175,16 +201,84 @@ namespace Iterex
                 return new AnimationTextureAdapter(Content.Load<Texture2D>("animatedEntities/" + name), name, frameCount, frameSpeed, isLooping);
             }
 
-            Global.AnimatedEntityTextures.Add("WoodcutterWalkRight", GetAnimatedEntityTexture("Woodcutter_walk_right", 6, 0.1f, true));
-            Global.AnimatedEntityTextures.Add("WoodcutterWalkLeft", GetAnimatedEntityTexture("Woodcutter_walk_left", 6, 0.1f, true));
-            Global.AnimatedEntityTextures.Add("WoodcutterRunRight", GetAnimatedEntityTexture("Woodcutter_run_right", 6, 0.1f, true));
-            Global.AnimatedEntityTextures.Add("WoodcutterRunLeft", GetAnimatedEntityTexture("Woodcutter_run_left", 6, 0.1f, true));
-            Global.AnimatedEntityTextures.Add("WoodcutterJumpRight", GetAnimatedEntityTexture("Woodcutter_jump_right", 6, 0.1f, true));
-            Global.AnimatedEntityTextures.Add("WoodcutterJumpLeft", GetAnimatedEntityTexture("Woodcutter_jump_left", 6, 0.1f, true));
-            Global.AnimatedEntityTextures.Add("WoodcutterIdleRight", GetAnimatedEntityTexture("Woodcutter_idle_right", 4, 0.1f, true));
-            Global.AnimatedEntityTextures.Add("WoodcutterIdleLeft", GetAnimatedEntityTexture("Woodcuttuer_idle_left", 4, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterWalk", GetAnimatedEntityTexture("Woodcutter_walk", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterRun", GetAnimatedEntityTexture("Woodcutter_run", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterJump", GetAnimatedEntityTexture("Woodcutter_jump", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterIdle", GetAnimatedEntityTexture("Woodcutter_idle", 4, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterAttack1", GetAnimatedEntityTexture("Woodcutter_attack1", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("WoodcutterAttack2", GetAnimatedEntityTexture("Woodcutter_attack2", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("WoodcutterAttack3", GetAnimatedEntityTexture("Woodcutter_attack3", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("WoodcutterClimb", GetAnimatedEntityTexture("Woodcutter_climb", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterCraft", GetAnimatedEntityTexture("Woodcutter_craft", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("WoodcutterDead", GetAnimatedEntityTexture("Woodcutter_death", 6, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("WoodcutterHurt", GetAnimatedEntityTexture("Woodcutter_hurt", 3, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("WoodcutterPush", GetAnimatedEntityTexture("Woodcutter_push", 6, 0.1f, true));
 
+            Global.AnimatedEntityTextures.Add("GraveRobberWalk", GetAnimatedEntityTexture("GraveRobber_walk", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("GraveRobberRun", GetAnimatedEntityTexture("GraveRobber_run", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("GraveRobberJump", GetAnimatedEntityTexture("GraveRobber_jump", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("GraveRobberIdle", GetAnimatedEntityTexture("GraveRobber_idle", 4, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("GraveRobberAttack1", GetAnimatedEntityTexture("GraveRobber_attack1", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("GraveRobberAttack2", GetAnimatedEntityTexture("GraveRobber_attack2", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("GraveRobberAttack3", GetAnimatedEntityTexture("GraveRobber_attack3", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("GraveRobberClimb", GetAnimatedEntityTexture("GraveRobber_climb", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("GraveRobberCraft", GetAnimatedEntityTexture("GraveRobber_craft", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("GraveRobberDead", GetAnimatedEntityTexture("GraveRobber_death", 6, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("GraveRobberHurt", GetAnimatedEntityTexture("GraveRobber_hurt", 3, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("GraveRobberPush", GetAnimatedEntityTexture("GraveRobber_push", 6, 0.1f, true));
+
+            Global.AnimatedEntityTextures.Add("SteamManWalk", GetAnimatedEntityTexture("SteamMan_walk", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("SteamManRun", GetAnimatedEntityTexture("SteamMan_run", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("SteamManJump", GetAnimatedEntityTexture("SteamMan_jump", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("SteamManIdle", GetAnimatedEntityTexture("SteamMan_idle", 4, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("SteamManAttack1", GetAnimatedEntityTexture("SteamMan_attack1", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("SteamManAttack2", GetAnimatedEntityTexture("SteamMan_attack2", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("SteamManAttack3", GetAnimatedEntityTexture("SteamMan_attack3", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("SteamManClimb", GetAnimatedEntityTexture("SteamMan_climb", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("SteamManCraft", GetAnimatedEntityTexture("SteamMan_craft", 6, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("SteamManDead", GetAnimatedEntityTexture("SteamMan_death", 6, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("SteamManHurt", GetAnimatedEntityTexture("SteamMan_hurt", 3, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("SteamManPush", GetAnimatedEntityTexture("SteamMan_push", 6, 0.1f, true));
+
+            Global.AnimatedEntityTextures.Add("CentipedeAttack1", GetAnimatedEntityTexture("Centipede_attack1", 4, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("CentipedeAttack2", GetAnimatedEntityTexture("Centipede_attack2", 4, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("CentipedeAttack3", GetAnimatedEntityTexture("Centipede_attack3", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("CentipedeAttack4", GetAnimatedEntityTexture("Centipede_attack4", 4, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("CentipedeDead", GetAnimatedEntityTexture("Centipede_death", 4, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("CentipedeHurt", GetAnimatedEntityTexture("Centipede_hurt", 2, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("CentipedeIdle", GetAnimatedEntityTexture("Centipede_idle", 4, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("CentipedeSneer", GetAnimatedEntityTexture("Centipede_sneer", 6, 0.08f, true));
+            Global.AnimatedEntityTextures.Add("CentipedeRun", GetAnimatedEntityTexture("Centipede_walk", 4, 0.07f, true));
+
+            Global.AnimatedEntityTextures.Add("BattleTurtleAttack1", GetAnimatedEntityTexture("Battle_turtle_attack1", 4, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("BattleTurtleAttack2", GetAnimatedEntityTexture("Battle_turtle_attack2", 4, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("BattleTurtleAttack3", GetAnimatedEntityTexture("Battle_turtle_attack3", 4, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("BattleTurtleAttack4", GetAnimatedEntityTexture("Battle_turtle_attack4", 4, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("BattleTurtleDead", GetAnimatedEntityTexture("Battle_turtle_death", 4, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("BattleTurtleHurt", GetAnimatedEntityTexture("Battle_turtle_hurt", 2, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("BattleTurtleIdle", GetAnimatedEntityTexture("Battle_turtle_idle", 4, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("BattleTurtleSneer", GetAnimatedEntityTexture("Battle_turtle_sneer", 6, 0.08f, true));
+            Global.AnimatedEntityTextures.Add("BattleTurtleRun", GetAnimatedEntityTexture("Battle_turtle_walk", 4, 0.07f, true));
+
+            Global.AnimatedEntityTextures.Add("BigBloatedAttack1", GetAnimatedEntityTexture("Big_bloated_attack1", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("BigBloatedAttack2", GetAnimatedEntityTexture("Big_bloated_attack2", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("BigBloatedAttack3", GetAnimatedEntityTexture("Big_bloated_attack3", 4, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("BigBloatedAttack4", GetAnimatedEntityTexture("Big_bloated_attack4", 6, 0.07f, false));
+            Global.AnimatedEntityTextures.Add("BigBloatedDead", GetAnimatedEntityTexture("Big_bloated_death", 4, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("BigBloatedHurt", GetAnimatedEntityTexture("Big_bloated_hurt", 2, 0.1f, false));
+            Global.AnimatedEntityTextures.Add("BigBloatedIdle", GetAnimatedEntityTexture("Big_bloated_idle", 4, 0.1f, true));
+            Global.AnimatedEntityTextures.Add("BigBloatedSneer", GetAnimatedEntityTexture("Big_bloated_sneer", 6, 0.08f, true));
+            Global.AnimatedEntityTextures.Add("BigBloatedRun", GetAnimatedEntityTexture("Big_bloated_walk", 6, 0.07f, true));
+
+            Global.PlayerAnimations.Add("Woodcutter", GetPlayerAnimations("Woodcutter"));
+            Global.PlayerAnimations.Add("GraveRobber", GetPlayerAnimations("GraveRobber"));
+            Global.PlayerAnimations.Add("SteamMan", GetPlayerAnimations("SteamMan"));
+
+            Global.EnemyAnimations.Add("Centipede", GetEnemyAnimations("Centipede"));
+            Global.EnemyAnimations.Add("BattleTurtle", GetEnemyAnimations("BattleTurtle"));
+            Global.EnemyAnimations.Add("BigBloated", GetEnemyAnimations("BigBloated"));
         }
+
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
@@ -206,7 +300,11 @@ namespace Iterex
             Global.MouseState = Mouse.GetState();
 
             Global.ParralexBackground.Update(gameTime);
-            Global.Player.Update(gameTime, Global.Sprites);
+            Global.Entities = Global.Entities.Where(entity => entity.Attributes.IsRemovable == false).ToList();
+            foreach(Entity.Entity entity in Global.Entities)
+            {
+                entity.Update(gameTime, Global.Sprites);
+            }
 
             //MARK: Centering camera on player
             _camera.Follow(Global.Player);
@@ -226,16 +324,22 @@ namespace Iterex
 
             // TODO: Add your drawing code here
 
+            #region DrawParallaxBackground
             _spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp);
 
             Global.ParralexBackground.Draw(_spriteBatch);
 
             _spriteBatch.End();
+            #endregion
 
+            #region DrawGame
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: _camera.TransformMatrix);
 
             Global.ActiveWorld.Draw(_spriteBatch);
-            Global.Player.Draw(_spriteBatch);
+            foreach (Entity.Entity entity in Global.Entities)
+            {
+                entity.Draw(_spriteBatch);
+            }
 
             //test
             /*Sprite treetop = new Sprite(new Dictionary<string, ITextureAdapter>() { { "tree3", Global.TileTextures["tree3"] } },
@@ -248,6 +352,7 @@ namespace Iterex
             treetop.Draw(_spriteBatch);*/
 
             _spriteBatch.End();
+            #endregion
 
             base.Draw(gameTime);
         }
