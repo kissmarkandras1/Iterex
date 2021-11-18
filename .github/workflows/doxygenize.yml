@@ -8,6 +8,6 @@ jobs:
        uses: langroodi/doxygenize@v1.4
        with:
             ghpagesbranch: 'main'
-            doxygenconf: './Iterex/Doxyfile'
+            doxygenconf: './Iterex/'
             htmloutput: './Iterex/docs'
             ghpagesdir: './Iterex/docs'
