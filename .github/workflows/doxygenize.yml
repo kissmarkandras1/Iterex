@@ -4,6 +4,8 @@ jobs:
   Doxygenize:
     runs-on: ubuntu-latest
     steps:
+     - name: list
+        run: ls
      - name: Doxygenize
        uses: langroodi/doxygenize@v1.4
        with:
