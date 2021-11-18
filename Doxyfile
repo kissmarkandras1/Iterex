@@ -1,0 +1,4 @@
+GENERATE_LATEX         = NO
+OUTPUT_DIRECTORY       = ./ # Relative path to root of your repository (e.g, ./)
+INPUT                  = ./Iterex # Relative path to root of your repository (e.g, ./src)
+HTML_OUTPUT            = ./docs # Relative path to root of your repository
