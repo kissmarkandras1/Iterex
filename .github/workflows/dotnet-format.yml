@@ -6,10 +6,18 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 6.x
+          dotnet-version: 3.1.x
+          
+      - name: Add manifest
+        run:  dotnet new tool-manifest
+        
+      - name: Install dotnet format
+        run:  dotnet tool install dotnet-format
+        
       - name: Add dotnet-format problem matcher
         uses: xt0rted/dotnet-format-problem-matcher@v1
 
