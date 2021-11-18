@@ -1,0 +1,10 @@
+name: Generate Documentation
+on: push
+jobs:
+  Doxygenize:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Doxygenize
+       uses: langroodi/doxygenize@v1.4
+       with:
+            ghpagesbranch: 'main'
