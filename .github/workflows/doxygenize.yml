@@ -7,5 +7,5 @@ jobs:
      - name: "Doxygen"
        run: |
          sudo apt-get install -y doxygen
-         ls -ls
+         ls -a
          doxygen Iterex/Doxyfile
