@@ -1,10 +1,8 @@
 name: Generate Documentation
 on: push
 jobs:
-  Doxygenize:
+  Doxygen:
     runs-on: ubuntu-latest
     steps:
      - name: Doxygen
        uses: mattnotmitt/doxygen-action@v1
-       with:
-        working-directory: 'Iterex/'
