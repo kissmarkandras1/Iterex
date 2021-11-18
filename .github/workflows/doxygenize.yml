@@ -4,5 +4,7 @@ jobs:
   Doxygen:
     runs-on: ubuntu-latest
     steps:
-     - name: Doxygen
-       uses: mattnotmitt/doxygen-action@v1
+     - name: "Doxygen"
+       run: |
+         sudo apt-get install -y doxygen
+         doxygen Doxyfile
