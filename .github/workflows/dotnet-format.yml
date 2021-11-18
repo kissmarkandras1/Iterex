@@ -25,5 +25,5 @@ jobs:
         uses: xt0rted/dotnet-tool-restore@v1
 
       - name: Run dotnet format
-        run: dotnet-format ./Iterex.sln
+        run: dotnet format
         
