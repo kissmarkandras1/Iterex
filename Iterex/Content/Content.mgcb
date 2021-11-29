@@ -25,18 +25,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Battle_turtle.png
 
-#begin animatedEntities/Battle_turtle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle.png
-
 #begin animatedEntities/Battle_turtle_attack1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -48,30 +36,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Battle_turtle_attack1.png
-
-#begin animatedEntities/Battle_turtle_attack1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle_attack1.png
-
-#begin animatedEntities/Battle_turtle_attack2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle_attack2.png
 
 #begin animatedEntities/Battle_turtle_attack2.png
 /importer:TextureImporter
@@ -97,18 +61,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Battle_turtle_attack3.png
 
-#begin animatedEntities/Battle_turtle_attack3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle_attack3.png
-
 #begin animatedEntities/Battle_turtle_attack4.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -120,30 +72,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Battle_turtle_attack4.png
-
-#begin animatedEntities/Battle_turtle_attack4.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle_attack4.png
-
-#begin animatedEntities/Battle_turtle_death.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle_death.png
 
 #begin animatedEntities/Battle_turtle_death.png
 /importer:TextureImporter
@@ -169,18 +97,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Battle_turtle_hurt.png
 
-#begin animatedEntities/Battle_turtle_hurt.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle_hurt.png
-
 #begin animatedEntities/Battle_turtle_idle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -192,30 +108,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Battle_turtle_idle.png
-
-#begin animatedEntities/Battle_turtle_idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle_idle.png
-
-#begin animatedEntities/Battle_turtle_sneer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle_sneer.png
 
 #begin animatedEntities/Battle_turtle_sneer.png
 /importer:TextureImporter
@@ -241,18 +133,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Battle_turtle_walk.png
 
-#begin animatedEntities/Battle_turtle_walk.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Battle_turtle_walk.png
-
 #begin animatedEntities/Big_bloated.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -264,30 +144,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Big_bloated.png
-
-#begin animatedEntities/Big_bloated.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated.png
-
-#begin animatedEntities/Big_bloated_attack1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated_attack1.png
 
 #begin animatedEntities/Big_bloated_attack1.png
 /importer:TextureImporter
@@ -313,18 +169,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Big_bloated_attack2.png
 
-#begin animatedEntities/Big_bloated_attack2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated_attack2.png
-
 #begin animatedEntities/Big_bloated_attack3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -336,30 +180,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Big_bloated_attack3.png
-
-#begin animatedEntities/Big_bloated_attack3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated_attack3.png
-
-#begin animatedEntities/Big_bloated_attack4.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated_attack4.png
 
 #begin animatedEntities/Big_bloated_attack4.png
 /importer:TextureImporter
@@ -385,18 +205,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Big_bloated_death.png
 
-#begin animatedEntities/Big_bloated_death.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated_death.png
-
 #begin animatedEntities/Big_bloated_hurt.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -408,30 +216,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Big_bloated_hurt.png
-
-#begin animatedEntities/Big_bloated_hurt.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated_hurt.png
-
-#begin animatedEntities/Big_bloated_idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated_idle.png
 
 #begin animatedEntities/Big_bloated_idle.png
 /importer:TextureImporter
@@ -457,18 +241,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Big_bloated_sneer.png
 
-#begin animatedEntities/Big_bloated_sneer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated_sneer.png
-
 #begin animatedEntities/Big_bloated_walk.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -480,30 +252,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Big_bloated_walk.png
-
-#begin animatedEntities/Big_bloated_walk.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Big_bloated_walk.png
-
-#begin animatedEntities/Bolt.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Bolt.png
 
 #begin animatedEntities/Bolt.png
 /importer:TextureImporter
@@ -529,18 +277,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Bullet1.png
 
-#begin animatedEntities/Bullet1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Bullet1.png
-
 #begin animatedEntities/Bullet2.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -552,30 +288,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Bullet2.png
-
-#begin animatedEntities/Bullet2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Bullet2.png
-
-#begin animatedEntities/Bullet3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Bullet3.png
 
 #begin animatedEntities/Bullet3.png
 /importer:TextureImporter
@@ -601,18 +313,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Bullet4.png
 
-#begin animatedEntities/Bullet4.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Bullet4.png
-
 #begin animatedEntities/Centipede.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -624,30 +324,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Centipede.png
-
-#begin animatedEntities/Centipede.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede.png
-
-#begin animatedEntities/Centipede_attack1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede_attack1.png
 
 #begin animatedEntities/Centipede_attack1.png
 /importer:TextureImporter
@@ -673,18 +349,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Centipede_attack2.png
 
-#begin animatedEntities/Centipede_attack2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede_attack2.png
-
 #begin animatedEntities/Centipede_attack3.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -696,30 +360,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Centipede_attack3.png
-
-#begin animatedEntities/Centipede_attack3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede_attack3.png
-
-#begin animatedEntities/Centipede_attack4.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede_attack4.png
 
 #begin animatedEntities/Centipede_attack4.png
 /importer:TextureImporter
@@ -745,30 +385,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Centipede_death.png
 
-#begin animatedEntities/Centipede_death.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede_death.png
-
-#begin animatedEntities/Centipede_hurt.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede_hurt.png
-
 #begin animatedEntities/Centipede_hurt.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -793,18 +409,6 @@
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Centipede_idle.png
 
-#begin animatedEntities/Centipede_idle.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede_idle.png
-
 #begin animatedEntities/Centipede_sneer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -816,30 +420,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:animatedEntities/Centipede_sneer.png
-
-#begin animatedEntities/Centipede_sneer.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede_sneer.png
-
-#begin animatedEntities/Centipede_walk.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:animatedEntities/Centipede_walk.png
 
 #begin animatedEntities/Centipede_walk.png
 /importer:TextureImporter
@@ -1668,4 +1248,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tiles/tree3.png
+
+#begin uiSprites/pixel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:uiSprites/pixel.png
 

@@ -24,6 +24,7 @@ namespace Iterex.Common
         public static Dictionary<string, ITextureAdapter> TileTextures;
         public static Dictionary<string, ITextureAdapter> EntityTextures;
         public static Dictionary<string, ITextureAdapter> AnimatedEntityTextures;
+        public static Dictionary<string, ITextureAdapter> UITextures;
         public static Dictionary<string, Dictionary<string, ITextureAdapter>> PlayerAnimations;
         public static Dictionary<string, Dictionary<string, ITextureAdapter>> EnemyAnimations;
         public static Player Player;

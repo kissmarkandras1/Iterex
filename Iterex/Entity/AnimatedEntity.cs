@@ -17,6 +17,8 @@ namespace Iterex.Entity
         public int Direction { get; protected set; }
         public bool OnGround { get; protected set; }
 
+        public UI.UIStatus HpBar;
+
         public AnimatedEntity() : base() { }
 
         public AnimatedEntity(ITextureAdapter texture) 
@@ -28,13 +30,22 @@ namespace Iterex.Entity
         public AnimatedEntity(Dictionary<string, ITextureAdapter> textures, string firstTexture)
             : base(textures, firstTexture)
         {
-
+            HpBar = new UI.UIStatus(new Rectangle((int)Position.X, (int)Position.Y - 20, 100, 20),1,null);
         }
 
 
         protected bool IsDone()
         {
             return _animationManager.IsDone();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch, float depth)
+        {
+            if (_textures != null)
+            {
+                _animationManager.Draw(spriteBatch, Position, depth, IsFlip);
+            }
+            HpBar.Draw(spriteBatch,Attributes.MaxHP,Attributes.HP);
         }
 
     }

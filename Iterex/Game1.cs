@@ -69,6 +69,7 @@ namespace Iterex
             Global.EntityTextures = new Dictionary<string, ITextureAdapter>();
             Global.TileTextures = new Dictionary<string, ITextureAdapter>();
             Global.AnimatedEntityTextures = new Dictionary<string, ITextureAdapter>();
+            Global.UITextures = new Dictionary<string, ITextureAdapter>();
             Global.PlayerAnimations = new Dictionary<string, Dictionary<string, ITextureAdapter>>();
             Global.EnemyAnimations = new Dictionary<string, Dictionary<string, ITextureAdapter>>();
             Global.Entities = new List<Entity.Entity>();
@@ -87,6 +88,7 @@ namespace Iterex
             LoadTiles();
             LoadBackgrounds();
             LoadAnimatedEntityTexture();
+            LoadUITexture();
 
             //MARK: Need to initialize them once we have the textures for the width of collision box
             Global.ActiveWorld = new World.World(300, 100);
@@ -277,6 +279,16 @@ namespace Iterex
             Global.EnemyAnimations.Add("Centipede", GetEnemyAnimations("Centipede"));
             Global.EnemyAnimations.Add("BattleTurtle", GetEnemyAnimations("BattleTurtle"));
             Global.EnemyAnimations.Add("BigBloated", GetEnemyAnimations("BigBloated"));
+        }
+
+        private void LoadUITexture()
+        {
+            ITextureAdapter GetUITexture(string name)
+            {
+                return new SimpleTextureAdapter(Content.Load<Texture2D>("uiSprites/" + name), name);
+            }
+
+            Global.TileTextures.Add("pixel", GetUITexture("pixel"));
         }
 
         /// <summary>
