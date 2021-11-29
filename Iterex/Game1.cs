@@ -25,6 +25,7 @@ namespace Iterex
         public static int ScreenWidth;
         public static int ScreenHeight;
 
+        UI.UIStatus playerStatus = new UI.UIStatus(new Rectangle(0,0,500,20),1,null);
         public Game1(int width, int height)
         {
             ScreenWidth = width;
@@ -288,7 +289,7 @@ namespace Iterex
                 return new SimpleTextureAdapter(Content.Load<Texture2D>("uiSprites/" + name), name);
             }
 
-            Global.TileTextures.Add("pixel", GetUITexture("pixel"));
+            Global.UITextures.Add("pixel", GetUITexture("pixel"));
         }
 
         /// <summary>
@@ -352,6 +353,8 @@ namespace Iterex
             {
                 entity.Draw(_spriteBatch);
             }
+
+            playerStatus.Draw(_spriteBatch, Common.Global.Player.Attributes.HP, Common.Global.Player.Attributes.MaxHP);
 
             //test
             /*Sprite treetop = new Sprite(new Dictionary<string, ITextureAdapter>() { { "tree3", Global.TileTextures["tree3"] } },
