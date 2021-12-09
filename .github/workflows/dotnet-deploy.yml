@@ -1,0 +1,45 @@
+name: .NET
+
+on:
+  push:
+    branches: 
+    - '*'
+    tags:
+    - 'iterex/v*'
+  pull_request:
+    branches:
+    - '*'
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Install NUnit
+      run:  dotnet add ./Iterex.Tests/Iterex.Tests.csproj package NUnit --version 3.13.2
+    - name: Install Moq
+      run: dotnet add ./Iterex.Tests/Iterex.Tests.csproj package Moq --version 4.16.1
+    - name: Restore dependencies
+      run: dotnet restore ./Iterex/Iterex.csproj
+    - name: Build
+      run: dotnet clean ; dotnet build -c Release --no-restore
+    - name: Deploy
+      run: dotnet publish ./Iterex/Iterex.csproj -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
+    - uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+    - uses: csexton/release-asset-action@v2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        pattern: ./Iterex/bin/Release/netcoreapp3.1/win-x64/publish/*.exe
+        release-url: ${{ steps.create_release.outputs.upload_url }}
+        

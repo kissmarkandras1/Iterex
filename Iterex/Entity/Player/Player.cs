@@ -69,7 +69,7 @@ namespace Iterex.Entity.Player
 
             if (Global.KeyboardState.IsKeyDown(Keys.Space))
             {
-                if (!this.Attributes.IsAttacking )
+                if (!this.Attributes.IsAttacking && OnGround)
                 {
                     this.Attributes.StartAttacking = true;
                     Velocity.X += Direction * EntityConfiguration.MaxSpeed.X * Attributes.Speed;
