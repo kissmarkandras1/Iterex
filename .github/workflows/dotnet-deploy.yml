@@ -1,17 +1,12 @@
-name: .NET
+name: Deploy Iterex
 
 on:
   push:
-    branches: 
-    - '*'
     tags:
-    - 'iterex/v*'
-  pull_request:
-    branches:
-    - '*'
+    - "iterex/v*"
 
 jobs:
-  build:
+  deploy:
 
     runs-on: windows-latest
 
@@ -21,10 +16,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-    - name: Install NUnit
-      run:  dotnet add ./Iterex.Tests/Iterex.Tests.csproj package NUnit --version 3.13.2
-    - name: Install Moq
-      run: dotnet add ./Iterex.Tests/Iterex.Tests.csproj package Moq --version 4.16.1
     - name: Restore dependencies
       run: dotnet restore ./Iterex/Iterex.csproj
     - name: Build

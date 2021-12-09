@@ -1,4 +1,4 @@
-name: .NET
+name: Iterex CI
 
 on:
   push:
