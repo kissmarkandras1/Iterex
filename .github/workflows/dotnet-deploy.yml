@@ -19,7 +19,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Iterex/Iterex.csproj
     - name: Build
-      run: dotnet clean ; dotnet build -c Release --no-restore
+      run: dotnet clean ; dotnet build ./Iterex/Iterex.csproj -c Release --no-restore
     - name: Deploy
       run: dotnet publish ./Iterex/Iterex.csproj -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
     - uses: actions/create-release@v1
