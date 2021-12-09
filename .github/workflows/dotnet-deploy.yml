@@ -23,6 +23,7 @@ jobs:
     - name: Deploy
       run: dotnet publish ./Iterex/Iterex.csproj -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
     - uses: actions/create-release@v1
+      id: create_release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
