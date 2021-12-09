@@ -25,7 +25,7 @@ namespace Iterex.Entity.Player
             : base(textureAdapter, firstTexture)
         {
             OnGround = false;
-            Direction = 1;
+            Direction = 1; 
         }
 
 
