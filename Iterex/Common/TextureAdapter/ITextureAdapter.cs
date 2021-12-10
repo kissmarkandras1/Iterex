@@ -72,12 +72,5 @@ namespace Iterex.Common.TextureAdapter
         void Draw(SpriteBatch spriteBatch, Vector2 position, bool flip = false);
 
         void Draw(SpriteBatch spriteBatch, Vector2 position, float depth, bool flip = false);
-
-        void DrawBlack(SpriteBatch spriteBatch, Vector2 position, bool flip = false);
-
-        void DrawBlack(SpriteBatch spriteBatch, Vector2 position, float depth, bool flip = false);
-
-        void DrawLight(SpriteBatch spriteBatch, Vector2 position, bool flip = false);
-
     }
 }

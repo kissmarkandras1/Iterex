@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Iterex.Entity
 {
-    public abstract class Entity : Sprite
+    public class Entity : Sprite
     {
         public Random Random = new Random();
         public Vector2 Velocity;
@@ -92,8 +92,6 @@ namespace Iterex.Entity
 
             return sprites;
         }
-
-        public abstract void DrawHp(SpriteBatch spriteBatch);
 
         //Check collision with other sprite - AABB
         #region CollisionAABB

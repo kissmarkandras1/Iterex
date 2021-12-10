@@ -92,34 +92,6 @@ namespace Iterex.Common
             }
         }
 
-        public virtual void DrawBlack(SpriteBatch spriteBatch)
-        {
-            if (_textures != null)
-            {
-                //BorderDrawer.DrawRectangle(spriteBatch, TextureBox, Color.Black, 1);
-                //BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Red, 1);
-                _animationManager.DrawBlack(spriteBatch, Position, IsFlip);
-            }
-        }
-
-        public virtual void DrawLight(SpriteBatch spriteBatch)
-        {
-            if (_textures != null)
-            {
-                //BorderDrawer.DrawRectangle(spriteBatch, TextureBox, Color.Black, 1);
-                //BorderDrawer.DrawRectangle(spriteBatch, CollisionBox, Color.Red, 1);
-                _animationManager.DrawLight(spriteBatch, Position, IsFlip);
-            }
-        }
-
-        public virtual void DrawBlack(SpriteBatch spriteBatch, float depth)
-        {
-            if (_textures != null)
-            {
-                _animationManager.DrawBlack(spriteBatch, Position, depth, IsFlip);
-            }
-        }
-
         public void SwitchTexture(string textureName, bool flip = false)
         {
             _currentTexture = textureName;

@@ -30,8 +30,6 @@ namespace Iterex.Common
         public static Player Player;
         public static Random Random = new Random();
         public static List<Entity.Entity> Entities;
-        public static Texture2D glow;
-        public static Color ambientcolor;
 
         //public static List<World.Tile.Tile> Trees;  //not sure if this is a good solution
     }

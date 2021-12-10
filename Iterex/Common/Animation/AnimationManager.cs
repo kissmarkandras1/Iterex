@@ -76,20 +76,5 @@ namespace Iterex.Common.Animation
             _texture.Draw(spriteBatch, position, depth, flip);
         }
 
-        public void DrawBlack(SpriteBatch spriteBatch, Vector2 position, bool flip = false)
-        {
-            _texture.DrawBlack(spriteBatch, position, flip);
-        }
-
-        public void DrawBlack(SpriteBatch spriteBatch, Vector2 position, float depth, bool flip = false)
-        {
-            _texture.DrawBlack(spriteBatch, position, depth, flip);
-        }
-
-        public void DrawLight(SpriteBatch spriteBatch, Vector2 position, bool flip = false)
-        {
-            _texture.DrawLight(spriteBatch, position, flip);
-        }
-
     } 
 }
