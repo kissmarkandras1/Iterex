@@ -116,6 +116,30 @@ namespace Iterex.World
             }
         }
 
+        public void DrawBlack(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < Map.GetLength(0); i++)
+            {
+                for (int j = 0; j < Map.GetLength(1); j++)
+                {
+                    if (Map[i, j] != null)
+                        Map[i, j].DrawBlack(spriteBatch);
+                }
+            }
+        }
+
+        public void DrawLight(SpriteBatch spriteBatch)
+        {
+            for (int i = 0; i < Map.GetLength(0); i++)
+            {
+                for (int j = 0; j < Map.GetLength(1); j++)
+                {
+                    if (Map[i, j] == null)
+                        Map[i, j].DrawLight(spriteBatch);
+                }
+            }
+        }
+
         //Finds the height of the first tile at a given width
         public int FindSurface(int width)
         {
@@ -248,9 +272,6 @@ namespace Iterex.World
                  Position = new Vector2(x * Global.TILE_SIZE - 16, (y - h) * Global.TILE_SIZE),
                  IsSolid = false
              };
-
-            
-
         }
     }
 }

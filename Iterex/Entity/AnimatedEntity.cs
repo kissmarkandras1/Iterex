@@ -45,7 +45,20 @@ namespace Iterex.Entity
             {
                 _animationManager.Draw(spriteBatch, Position, depth, IsFlip);
             }
-            HpBar.Draw(spriteBatch,Attributes.MaxHP,Attributes.HP);
+        }
+
+        public override void DrawBlack(SpriteBatch spriteBatch, float depth)
+        {
+            if (_textures != null)
+            {
+                _animationManager.DrawBlack(spriteBatch, Position, depth, IsFlip);
+            }
+        }
+
+        public override void DrawHp(SpriteBatch spriteBatch)
+        {
+            HpBar.Area = new Rectangle((int)Position.X, (int)Position.Y - 10, 40, 10);
+            HpBar.Draw(spriteBatch, Attributes.HP, Attributes.MaxHP);
         }
 
     }

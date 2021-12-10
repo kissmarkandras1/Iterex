@@ -148,5 +148,47 @@ namespace Iterex.Common.TextureAdapter
                              effect,
                              depth);
         }
+
+        public void DrawBlack(SpriteBatch spriteBatch, Vector2 position, bool flip = false)
+        {
+            SpriteEffects effect = (flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+            spriteBatch.Draw(Texture,
+                             position,
+                             null,
+                             Color.Black,
+                             0,
+                             new Vector2(0, 0),
+                             1f,
+                             effect,
+                             0f);
+        }
+
+        public void DrawBlack(SpriteBatch spriteBatch, Vector2 position, float depth, bool flip = false)
+        {
+            SpriteEffects effect = (flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+            spriteBatch.Draw(Texture,
+                             position,
+                             null,
+                             Color.Black,
+                             0,
+                             new Vector2(0, 0),
+                             1f,
+                             effect,
+                             depth);
+        }
+
+        public void DrawLight(SpriteBatch spriteBatch, Vector2 position, bool flip = false)
+        {
+            SpriteEffects effect = (flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+            spriteBatch.Draw(Global.glow,
+                             position - new Vector2(100,100),
+                             null,
+                             Global.ambientcolor,
+                             0,
+                             new Vector2(0, 0),
+                             1f,
+                             effect,
+                             0f);
+        }
     }
 }
