@@ -25,16 +25,6 @@ namespace Iterex
         public static int ScreenWidth;
         public static int ScreenHeight;
 
-        public static RenderTarget2D worldTarget;
-        public static RenderTarget2D worldUITarget;
-        public static RenderTarget2D lightTarget;
-        public static RenderTarget2D uiTarget;
-        public static RenderTarget2D lightWorldTarget;
-
-        public static float ambienttimer;
-
-        Effect lighteffect;
-
         UI.UIStatus playerStatus = new UI.UIStatus(new Rectangle(0,0,500,20),1,null);
         public Game1(int width, int height)
         {
@@ -65,12 +55,6 @@ namespace Iterex
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.ApplyChanges();
-
-            worldTarget = new RenderTarget2D(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            worldUITarget = new RenderTarget2D(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            lightTarget = new RenderTarget2D(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            uiTarget = new RenderTarget2D(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            lightWorldTarget = new RenderTarget2D(GraphicsDevice, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
         private void InitializeCamera()
@@ -128,7 +112,6 @@ namespace Iterex
                 }
             };
             Global.Entities.Add(Global.Player);
-            lighteffect = Content.Load<Effect>("effect/lighteffect");
         }
 
         private Dictionary<string, ITextureAdapter> GetPlayerAnimations(string playerName)
@@ -318,58 +301,14 @@ namespace Iterex
             // TODO: Unload any non ContentManager content here
         }
 
-        Color mixColor(Color color1, Color color2, float c1amount, float c2amount)
-        {
-            return new Color(color1.R*c1amount + color2.R*c2amount, color1.G * c1amount + color2.G * c2amount, color1.B * c1amount + color2.B * c2amount);
-        }
-
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        /// 
         protected override void Update(GameTime gameTime)
         {
             //MARK: Get the states of keyboard and mouse inputs and store them globally
-
-            ambienttimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            float ambientcycle = ambienttimer % 60;
-            float currentpoint;
-            float span;
-
-            if(ambientcycle < 10)
-            {
-                currentpoint = ambientcycle;
-                span = 10;
-                Global.ambientcolor = mixColor(Color.DarkBlue,Color.OrangeRed,(float)(1-(currentpoint/span)), currentpoint / span);
-            }
-            else if (ambientcycle > 10 && ambientcycle < 15)
-            {
-                currentpoint = ambientcycle;
-                span = 5;
-                Global.ambientcolor = mixColor(Color.OrangeRed, Color.White, (float)(1 - (currentpoint / span)), currentpoint / span);
-            }
-            else if (ambientcycle > 15 && ambientcycle < 45)
-            {
-                currentpoint = ambientcycle-15;
-                span = 30;
-                Global.ambientcolor = mixColor(Color.White, Color.White, (float)(1 - (currentpoint / span)), currentpoint / span);
-            }
-            else if (ambientcycle > 45 && ambientcycle < 50)
-            {
-                currentpoint = ambientcycle - 45;
-                span = 5;
-                Global.ambientcolor = mixColor(Color.White, Color.OrangeRed, (float)(1 - (currentpoint / span)), currentpoint / span);
-            }
-            else if (ambientcycle > 50 && ambientcycle < 60)
-            {
-                currentpoint = ambientcycle - 50;
-                span = 10;
-                Global.ambientcolor = mixColor(Color.OrangeRed, Color.DarkBlue, (float)(1 - (currentpoint / span)), currentpoint / span);
-            }
-
             Global.KeyboardState = Keyboard.GetState();
             Global.MouseState = Mouse.GetState();
 
@@ -394,7 +333,6 @@ namespace Iterex
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.SetRenderTarget(worldTarget);
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
@@ -416,62 +354,20 @@ namespace Iterex
                 entity.Draw(_spriteBatch);
             }
 
+            playerStatus.Draw(_spriteBatch, Common.Global.Player.Attributes.HP, Common.Global.Player.Attributes.MaxHP);
+
+            //test
+            /*Sprite treetop = new Sprite(new Dictionary<string, ITextureAdapter>() { { "tree3", Global.TileTextures["tree3"] } },
+                                                  "tree3")
+            {
+                Position = new Vector2(10 * Global.TILE_SIZE, 20 * Global.TILE_SIZE),
+                IsSolid = false
+            };
+
+            treetop.Draw(_spriteBatch);*/
+
             _spriteBatch.End();
             #endregion
-
-            GraphicsDevice.SetRenderTarget(worldUITarget);
-            GraphicsDevice.Clear(Color.Transparent);
-
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: _camera.TransformMatrix);
-
-            foreach (Entity.Entity entity in Global.Entities)
-            {
-                entity.DrawHp(_spriteBatch);
-            }
-
-            _spriteBatch.End();
-
-            GraphicsDevice.SetRenderTarget(uiTarget);
-            GraphicsDevice.Clear(Color.Transparent);
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack, null, SamplerState.PointClamp);
-
-            playerStatus.Draw(_spriteBatch, Global.Player.Attributes.HP, Global.Player.Attributes.MaxHP);
-
-            _spriteBatch.End();
-
-            /*
-            GraphicsDevice.SetRenderTarget(lightTarget);
-            GraphicsDevice.Clear(Global.ambientcolor);
-
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: _camera.TransformMatrix);
-
-            Global.ActiveWorld.DrawBlack(_spriteBatch);
-            foreach (Entity.Entity entity in Global.Entities)
-            {
-                entity.DrawBlack(_spriteBatch);
-            }
-            Global.ActiveWorld.DrawLight(_spriteBatch);
-
-            _spriteBatch.End();
-              
-            GraphicsDevice.SetRenderTarget(lightWorldTarget);
-            GraphicsDevice.Clear(Color.Black);
-            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-
-            lighteffect.Parameters["lightMask"].SetValue(lightTarget);
-            lighteffect.CurrentTechnique.Passes[0].Apply();
-
-            _spriteBatch.Draw(worldTarget, Vector2.Zero, Color.White);
-
-            _spriteBatch.End();*/
-
-            GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.Black);
-            _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            _spriteBatch.Draw(worldTarget, Vector2.Zero, Color.White);
-            _spriteBatch.Draw(worldUITarget, Vector2.Zero, Color.White);
-            _spriteBatch.Draw(uiTarget, Vector2.Zero, Color.White);
-            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

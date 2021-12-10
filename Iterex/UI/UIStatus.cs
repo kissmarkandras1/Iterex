@@ -23,10 +23,8 @@ namespace Iterex.UI
 
         public void Draw(SpriteBatch spriteBatch, int hp, int maxhp)
         {
-            float hprate = (float)hp / (float)maxhp;
-            float hprateinv = 1.0f - hprate;
-            spriteBatch.Draw(Common.Global.UITextures["pixel"].Texture,Area,Color.Black);
-            spriteBatch.Draw(Common.Global.UITextures["pixel"].Texture, new Rectangle(Area.X+2,Area.Y+2, (int)((Area.Width-4)*hprate), Area.Height-4), new Color((uint)(255.0*hprateinv), (uint)(255.0*hprate), 0));
+            spriteBatch.Draw(Common.Global.UITextures["pixel"].Texture,Area,Color.White);
+            spriteBatch.Draw(Common.Global.UITextures["pixel"].Texture, new Rectangle(Area.X+5,Area.Y+5,Area.Width-10-((Area.Width-10)* (1 - maxhp / hp)),Area.Height-10), new Color(255*(uint)(1- maxhp / hp), 255 * (uint)(maxhp / hp),0));
         }
 
         public override void Clicked() { }

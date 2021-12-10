@@ -973,12 +973,6 @@
 /processorParam:TextureFormat=Color
 /build:background/layer5.png
 
-#begin effect/lighteffect.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:effect/lighteffect.fx
-
 #begin entitysprites/GraveRobber.png
 /importer:TextureImporter
 /processor:TextureProcessor
